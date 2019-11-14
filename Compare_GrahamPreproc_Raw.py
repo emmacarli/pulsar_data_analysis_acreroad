@@ -2,7 +2,8 @@
 # 
 # This code plots raw data and data preprocessed using Graham's routine.
 # PDFs are useful to save all the plots but interactive plots can be looked at with more precision, although individually.
-# Author: Emma Carli
+# Author: Emma Carli emma.carli@outlook.com
+#
 # =============================================================================
 #
 
@@ -95,5 +96,5 @@ fig1_bottom.grid(which='major', alpha=0.5)
 fig1_bottom.set_xticklabels(np.linspace(0, total_hours_raw_rounded, num=total_hours_raw_rounded+1))
 fig1_bottom.set_title('Raw data')
 
-plt.savefig('Compare_Preproc_Raw.pdf') #comment out if want an interactive plot
+plt.savefig('Compare_GrahamPreproc_Raw.pdf') #comment out if want an interactive plot
 plt.close() #comment out if want an interactive plot
