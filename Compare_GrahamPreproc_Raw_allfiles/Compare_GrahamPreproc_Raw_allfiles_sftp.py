@@ -57,6 +57,11 @@ sampling_rate = 1/sampling_period
 
 for file_preproc in preproc_files:
     
+    start_time_GPS = float(file_preproc[:-12])
+
+    #if this file has already been plotted, skip it and go to the next in preproc_files
+    if os.path.exists(str(start_time_GPS)+'_GrahamPreproc.pdf') or os.path.exists(str(start_time_GPS)+'_Compare_GrahamPreproc_Raw.pdf'):
+        continue
     
     #%% Upload the data file
     print('Downloading '+file_preproc+'...')
@@ -67,7 +72,6 @@ for file_preproc in preproc_files:
     #Preprocessed data
     handle_file_preproc = open(file_preproc, mode='rb')
     data_preproc = np.fromfile(handle_file_preproc,'f4')
-    start_time_GPS = float(file_preproc[:-12])
     
     #Raw data
     file_raw = str(start_time_GPS)+'-PSRB0329-2ms-sampling-dd.dat'
@@ -180,7 +184,7 @@ for file_preproc in preproc_files:
         
         ax1.set_title('Preprocessed Data, Start of recording: ' + start_time_ISO_astropy.value)
         
-        plt.savefig('str(start_time_GPS)+'_GrahamPreproc.pdf') 
+        plt.savefig(str(start_time_GPS)+'_GrahamPreproc.pdf') 
         
 
     os.remove(file_preproc)
