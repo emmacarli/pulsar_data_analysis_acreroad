@@ -159,7 +159,7 @@ for file_preproc in preproc_files:
         plt.subplots_adjust(hspace=0.5)
         
         
-        plt.savefig(str(start_time_GPS)+'_Compare_GrahamPreproc_Raw.pdf') 
+        plt.savefig('plots/'+str(start_time_GPS)+'_Compare_GrahamPreproc_Raw.pdf') 
         
     else: #if there is no raw file,  plot the preprocessed one on its own.
         ax1 = plt.gca()
@@ -185,7 +185,7 @@ for file_preproc in preproc_files:
         
         ax1.set_title('Preprocessed Data, Start of recording: ' + start_time_ISO_astropy.value)
         
-        plt.savefig(str(start_time_GPS)+'_GrahamPreproc.pdf') 
+        plt.savefig('plots/'+str(start_time_GPS)+'_GrahamPreproc.pdf') 
         
 
     os.remove(file_preproc)
