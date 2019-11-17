@@ -61,6 +61,7 @@ for file_preproc in preproc_files:
 
     #if this file has already been plotted, skip it and go to the next in preproc_files
     if os.path.exists(str(start_time_GPS)+'_GrahamPreproc.pdf') or os.path.exists(str(start_time_GPS)+'_Compare_GrahamPreproc_Raw.pdf'):
+        print(str(start_time_GPS)+' already plotted.')
         continue
     
     #%% Upload the data file
