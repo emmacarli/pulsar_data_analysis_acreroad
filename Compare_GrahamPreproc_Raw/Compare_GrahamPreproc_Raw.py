@@ -1,7 +1,6 @@
 # =============================================================================
 # 
-# This code plots raw data and data preprocessed using Graham's routine.
-# PDFs are useful to save all the plots but interactive plots can be looked at with more precision, although individually.
+# This code plots raw data and data preprocessed using Graham's routine, for one recording session.
 # Author: Emma Carli emma.carli@outlook.com
 #
 # =============================================================================
