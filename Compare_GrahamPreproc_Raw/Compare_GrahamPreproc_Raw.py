@@ -1,3 +1,5 @@
+ticks_in_minutes = False #decide whether to label data in minutes or hours
+
 # =============================================================================
 # 
 # This code plots raw data and data preprocessed using Graham's routine, for one recording session.
@@ -34,7 +36,7 @@ plt.rcParams["figure.figsize"] = [10,10]
 
 #%% Which file do you want to plot?
 
-start_time_GPS = 1183079651.114455 #change date here
+start_time_GPS = 1195086376.112684 #change date here
 file_raw = str(start_time_GPS)+'-PSRB0329-2ms-sampling-dd.dat'
 file_preproc = str(start_time_GPS)+'-preproc.dat'
 
@@ -118,28 +120,41 @@ fig1 = plt.figure()
 if preproc_file_exists == True: #if there is a preprocessed file corresponding to the raw one, make a plot comparing the two.
     #Preprocessed dataset
     fig1_top = fig1.add_subplot(2,1,1)
-    fig1_top.plot(data_preproc, color='black',  marker='None', linewidth=0.05) #uncomment  to get a PDF plot.
+    #fig1_top.plot(data_preproc, color='black',  marker='None', linewidth=0.05) #uncomment  to get a PDF plot.
     fig1_top.plot(data_preproc, color='black',  linestyle='none', marker=',') #uncomment to get an interactive plot. can't plot individual points in a pdf, it makes it too large to handle.  make sure to comment out savefig and close, too. 
     fig1_top.set_ylabel('Power (arbitrary units)')
-    fig1_top.set_xticks(major_ticks_preproc)
-    fig1_top.set_xticks(minor_ticks_preproc, minor=True)
-    fig1_top.grid(which='minor', alpha=0.2)
-    fig1_top.grid(which='major', alpha=0.5)
-    fig1_top.set_xticklabels(np.linspace(0, total_hours_rounded_preproc, num=total_hours_rounded_preproc+1))
     fig1_top.set_title('Preprocessed Data')
+    
+    if ticks_in_minutes == False:
+        fig1_top.set_xticks(major_ticks_preproc)
+        fig1_top.set_xticks(minor_ticks_preproc, minor=True)
+        fig1_top.grid(which='minor', alpha=0.2)
+        fig1_top.grid(which='major', alpha=0.5)
+        fig1_top.set_xticklabels(np.linspace(0, total_hours_rounded_preproc, num=total_hours_rounded_preproc+1))
+    else:
+        fig1_top.set_xticks(minor_ticks_preproc)
+        fig1_top.grid(which='major', alpha=0.5)
+        fig1_top.set_xticklabels(np.linspace(0, total_hours_rounded_preproc*60, num=(total_hours_rounded_preproc*60)+1)) 
     
     #Raw dataset
     fig1_bottom = fig1.add_subplot(2,1,2)
     #fig1_bottom.plot(data_raw, color='black', marker='None', linewidth=0.05) #uncomment  to get a PDF plot.
     fig1_bottom.plot(data_raw, color='black',  linestyle='none', marker=',') #uncomment to get an interactive plot. can't plot individual points in a pdf, it makes it too large to handle.  make sure to comment out savefig and close, too.
-    fig1_bottom.set_xlabel('Time since start (hours)')
     fig1_bottom.set_ylabel('Power (arbitrary units)')
-    fig1_bottom.set_xticks(major_ticks_raw)
-    fig1_bottom.set_xticks(minor_ticks_raw, minor=True)
-    fig1_bottom.grid(which='minor', alpha=0.2)
-    fig1_bottom.grid(which='major', alpha=0.5)
-    fig1_bottom.set_xticklabels(np.linspace(0, total_hours_rounded_raw, num=total_hours_rounded_raw+1))
     fig1_bottom.set_title('Raw data')
+    
+    if ticks_in_minutes == False:
+        fig1_bottom.set_xticks(major_ticks_raw)
+        fig1_bottom.set_xticks(minor_ticks_raw, minor=True)
+        fig1_bottom.grid(which='minor', alpha=0.2)
+        fig1_bottom.grid(which='major', alpha=0.5)
+        fig1_bottom.set_xticklabels(np.linspace(0, total_hours_rounded_raw, num=total_hours_rounded_raw+1))
+        fig1_bottom.set_xlabel('Time since start (hours)')
+    else:
+       fig1_bottom.set_xticks(minor_ticks_raw)
+       fig1_bottom.grid(which='major', alpha=0.5)
+       fig1_bottom.set_xticklabels(np.linspace(0, total_hours_rounded_raw*60, num=(total_hours_rounded_raw*60)+1))
+       fig1_bottom.set_xlabel('Time since start (minutes)')
     
     # =============================================================================
     # 
@@ -163,12 +178,19 @@ else: #if there is no preprocessed file,  plot the raw one on its own.
     #ax1.plot(data_raw, color='black',  marker='None', linewidth=0.05) #uncomment  to get a PDF plot.
     ax1.plot(data_raw, color='black',  linestyle='none', marker=',') #uncomment to get an interactive plot. can't plot individual points in a pdf, it makes it too large to handle.  make sure to comment out savefig and close, too.
     ax1.set_ylabel('Power (arbitrary units)')
-    ax1.set_xticks(major_ticks_raw)
-    ax1.set_xticks(minor_ticks_raw, minor=True)
-    ax1.set_xlabel('Time (hours)')
-    ax1.grid(which='minor', alpha=0.2)
-    ax1.grid(which='major', alpha=0.5)
-    ax1.set_xticklabels(np.linspace(0, total_hours_rounded_raw, num=total_hours_rounded_raw+1))
+    
+    if ticks_in_minutes == False:
+        ax1.set_xticks(major_ticks_raw)
+        ax1.set_xticks(minor_ticks_raw, minor=True)
+        ax1.grid(which='minor', alpha=0.2)
+        ax1.grid(which='major', alpha=0.5)
+        ax1.set_xticklabels(np.linspace(0, total_hours_rounded_raw, num=total_hours_rounded_raw+1))
+        ax1.set_xlabel('Time since start (hours)')
+    else:
+       ax1.set_xticks(minor_ticks_raw)
+       ax1.grid(which='major', alpha=0.5)
+       ax1.set_xticklabels(np.linspace(0, total_hours_rounded_raw*60, num=(total_hours_rounded_raw*60)+1))
+       ax1.set_xlabel('Time since start (minutes)')
     
     # =============================================================================
     # 
