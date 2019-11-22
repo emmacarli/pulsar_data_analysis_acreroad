@@ -183,7 +183,7 @@ for file_raw in raw_files:
         ax1.set_ylabel('Power (arbitrary units)')
         ax1.set_xticks(major_ticks_raw)
         ax1.set_xticks(minor_ticks_raw, minor=True)
-        ax1.set_xlabel('Time (hours)')
+        ax1.set_xlabel('Time since start (hours)')
         ax1.grid(which='minor', alpha=0.2)
         ax1.grid(which='major', alpha=0.5)
         ax1.set_xticklabels(np.linspace(0, total_hours_rounded_raw, num=total_hours_rounded_raw+1))
