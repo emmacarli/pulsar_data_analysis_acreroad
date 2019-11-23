@@ -49,7 +49,6 @@ sftp.cwd('/home/astro/pulsartelescope/data') #change working directory
 #%% Set known data rates
 
 sampling_period = 2e-3 #2 ms
-sampling_rate = 1/sampling_period
 
 #%% Get the raw and preprocessed data
 
