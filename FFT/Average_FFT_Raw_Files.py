@@ -67,3 +67,9 @@ ax1.set_ylabel('Power (arbitrary units)')
 ax1.set_xlabel('Frequency (Hz)')
 ax1.set_title('Averaged FFT of all raw files')
 ax1.set_yscale('log')
+
+#%% Save or load the result
+#np.savez('meanfft.npz',fft_total=fft_total, fft_total_time_axis=fft_total_time_axis)
+#meanfft = np.load('meanfft.npz')
+#fft_total = meanfft[fft_total]
+#fft_total_time_axis = meanfft[fft_total_time_axis]
