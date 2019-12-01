@@ -202,7 +202,7 @@ for file_raw in raw_files:
         
         plt.savefig('Plots/'+str(start_time_GPS)+'_GrahamRaw'+flag+'.pdf') 
         
-
+    handle_file_raw.close()
     os.remove(file_preproc) #sftp creates an empty file when trying download even if preproc file does not exist on ettus
     plt.close() #comment out if want an interactive plot in debugging
     print('File(s) plotted and deleted.')

@@ -56,6 +56,8 @@ for file_raw in raw_files: #go through each raw file
     fft_raw = np.fft.rfft(data_raw[:four_hours_in_datapoints]) #perform the FFT on the raw file
     fft_total =  (fft_total + fft_raw) /2 #average the FFTs
 
+    handle_file_raw.close()
+
 #%% Plot the result
 
 print(str(short_files)+'raw file(s) shorter than 4 hours.')

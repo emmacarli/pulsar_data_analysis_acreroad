@@ -206,7 +206,7 @@ else: #if there is no preprocessed file,  plot the raw one on its own.
     
     #plt.savefig('Plots/'+str(start_time_GPS)+'_GrahamRaw'+flag+'.pdf') #comment out if want interactive plot
     
-
+handle_file_raw.close()
 os.remove(file_preproc) #sftp creates an empty file when trying download even if preproc file does not exist on ettus
 #plt.close() #comment out if want an interactive plot
 print('File(s) plotted and deleted.')

@@ -137,3 +137,5 @@ else:
    ax1.set_xticklabels(np.linspace(0, total_hours_rounded*60, num=(total_hours_rounded*60)+1))
    ax1.set_xlabel('Time since start (minutes)')
 
+handle_file_raw.close()
+
