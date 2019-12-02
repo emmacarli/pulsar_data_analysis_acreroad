@@ -17,6 +17,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from astropy.stats import sigma_clip
 import glob
+from astropy.time import Time
+
 
 #%% Set matplotlib general parameters
 
@@ -43,13 +45,11 @@ raw_files = glob.glob('/home/emma/Desktop/Raw_Datafiles/*-PSRB0329-2ms-sampling-
 for file_raw in raw_files: #go through each raw file
     start_time_GPS = float(file_raw[:-29])
     
-    #if this file has already been plotted, skip it and go to the next in raw_files
-    if glob.glob('Cleaned_Data/'+start_time_GPS+'_cleaned.dat') != []:
+    #if this file has already been cleaned, skip it and go to the next in raw_files
+    if glob.glob('Cleaned_Data/'+str(start_time_GPS)+'_cleaned.dat') != []:
         print(str(start_time_GPS)+' already cleaned.')
         continue
-# =============================================================================
-#     to do: if cleaned file already exists continue
-# =============================================================================
+
     
     #%% Access the raw data
     handle_file_raw = open(file_raw, mode='rb') 
@@ -82,7 +82,7 @@ for file_raw in raw_files: #go through each raw file
 # =============================================================================
 
     #%% Sigma clip over a 1 minute interval, since the drive jumps are < 1 min
-    data4 = np.zeros(len(data3))
+    data_cleaned = np.zeros(len(data3))
     minute_long_chunks_starting_points = np.linspace(0, len(data3) - one_minute_in_datapoints , number_of_one_minute_intervals , dtype='int')
     for minute_long_chunk_start in minute_long_chunks_starting_points :
     
@@ -90,112 +90,95 @@ for file_raw in raw_files: #go through each raw file
         
         sigma_masked_array = sigma_clip(data3[minute_long_chunk_start : minute_long_chunk_end], sigma=5, cenfunc='median', masked=True) #this is a NumPy MaskedArray object
         sigma_masked_array.set_fill_value(0.0)
-        data4[minute_long_chunk_start : minute_long_chunk_end] = sigma_masked_array.filled()
+        data_cleaned[minute_long_chunk_start : minute_long_chunk_end] = sigma_masked_array.filled()
 
     #%% Write the cleaned file
     
     #in the same way as a raw file, so can be opened the same way
-    handle_file_clean = open('Cleaned_Data/'+start_time_GPS+'_cleaned.dat', 'wb')
-    data_clean = np.array(data4, 'f4')
-    data_clean.tofile(handle_file_clean)
-    handle_file_clean.close()
+    handle_file_cleaned = open('Cleaned_Data/'+start_time_GPS+'_cleaned.dat', 'wb')
+    data_cleaned_binary = np.array(data_cleaned, 'f4')
+    data_cleaned_binary.tofile(handle_file_cleaned)
+    handle_file_cleaned.close()
     handle_file_raw.close()
 
 
     #%% Plot a comparison of the raw file and its cleaned version
+    
 
-#IF ALREADY PLOTTED SKIP
+    #%% If this file has already been plotted, skip it and go to the next in raw_files
+    
+    if glob.glob('Plots/'+str(start_time_GPS)+'_Compare_Cleaned_Raw*') != []:
+        print(str(start_time_GPS)+' already plotted.')
+        continue
 
     #%% Calculate values for axes and ticks
+     
+    #Raw dataset
+    total_seconds_raw = number_of_one_second_intervals
+    total_hours_raw =  total_seconds_raw / 3600
+    total_hours_rounded_raw = np.ceil(total_hours_raw)
+    total_hours_rounded_datapoints_raw =total_hours_rounded_raw*3600/sampling_period
+     
+    if total_hours_rounded_raw not in [4.0, 5.0]:
+        flag = '_different_length'
+     
+    #Cleaned dataset
+    total_seconds_cleaned = len(data_cleaned)*sampling_period #total seconds in dataset
+    total_hours_cleaned =  total_seconds_cleaned / 3600 #total hours in dataset
+    total_hours_rounded_cleaned = np.ceil(total_hours_cleaned) #total rounded hours in dataset
+    total_hours_rounded_datapoints_cleaned = total_hours_rounded_cleaned*3600/sampling_period #how many datapoints in total rounded hours in dataset
+        
+
+    #%% Set axes and ticks
+    
+    #Cleaned dataset
+    major_ticks_cleaned = np.linspace(0, total_hours_rounded_datapoints_cleaned, num=total_hours_rounded_cleaned+1) #set big ticks every hour
+    minor_ticks_cleaned = np.linspace(0, total_hours_rounded_datapoints_cleaned, num=((total_hours_rounded_cleaned*60)+1)) #set small ticks every minute
+    
+    #Raw dataset
+    major_ticks_raw = np.linspace(0, total_hours_rounded_datapoints_raw, num=total_hours_rounded_raw+1) #set big ticks every hour
+    minor_ticks_raw = np.linspace(0, total_hours_rounded_datapoints_raw, num=((total_hours_rounded_raw*60)+1)) #set small ticks every minute
+    
+    #%% Plot raw and cleaned files
+    
+    fig1 = plt.figure()
+    
+    #Cleaned dataset
+    fig1_top = fig1.add_subplot(2,1,1)
+    fig1_top.plot(data_cleaned, color='black',  marker='None', linewidth=0.05) 
+    fig1_top.set_ylabel('Power (arbitrary units)')
+    fig1_top.set_xticks(major_ticks_cleaned)
+    fig1_top.set_xticks(minor_ticks_cleaned, minor=True)
+    fig1_top.grid(which='minor', alpha=0.2)
+    fig1_top.grid(which='major', alpha=0.5)
+    fig1_top.set_xticklabels(np.linspace(0, total_hours_rounded_cleaned, num=total_hours_rounded_cleaned+1))
+    fig1_top.set_title('Cleaned Data')
+    
+    #Raw dataset
+    fig1_bottom = fig1.add_subplot(2,1,2)
+    fig1_bottom.plot(data_raw, color='black', marker='None', linewidth=0.05) 
+    fig1_bottom.set_xlabel('Time since start (hours)')
+    fig1_bottom.set_ylabel('Power (arbitrary units)')
+    fig1_bottom.set_xticks(major_ticks_raw)
+    fig1_bottom.set_xticks(minor_ticks_raw, minor=True)
+    fig1_bottom.grid(which='minor', alpha=0.2)
+    fig1_bottom.grid(which='major', alpha=0.5)
+    fig1_bottom.set_xticklabels(np.linspace(0, total_hours_rounded_raw, num=total_hours_rounded_raw+1))
+    fig1_bottom.set_title('Raw data')
+               
+        
 # =============================================================================
-#     
-#     flag = '' #create a flag for data with different lengths
-#     
-#     #Raw dataset
-#     total_seconds_raw = len(data_raw)*sampling_period
-#     total_hours_raw =  total_seconds_raw / 3600
-#     total_hours_rounded_raw = np.ceil(total_hours_raw)
-#     total_hours_rounded_datapoints_raw =total_hours_rounded_raw*3600/sampling_period
-#     0
-#     
-#         #Preprocessed dataset
-#     if preproc_file_exists == True:
-#         total_seconds_preproc = len(data_preproc)*sampling_period #total seconds in dataset
-#         total_hours_preproc =  total_seconds_preproc / 3600 #total hours in dataset
-#         total_hours_rounded_preproc = np.ceil(total_hours_preproc) #total rounded hours in dataset
-#         total_hours_rounded_datapoints_preproc = total_hours_rounded_preproc*3600/sampling_period #how many datapoints in total rounded hours in dataset
-#         
-#         if total_hours_preproc == 8.0:
-#             flag = '_preproc_doubled'
-#             print('Preprocessed data points doubled. Dividing axes by two...')
-#             total_seconds_preproc = total_seconds_preproc/2
-#             total_hours_preproc = total_hours_preproc/2
-#             total_hours_rounded_preproc =  total_hours_rounded_preproc/2
-#             #leave datapoints measure as is
-#         if total_hours_rounded_preproc not in [4.0, 5.0, 8.0]:
-#             flag = '_different_length'
-#             
-#     if total_hours_rounded_raw not in [4.0, 5.0]:
-#         flag = '_different_length'
-#             
-#     
-#     
-#             
-#         
-#     #%% Set axes and ticks
-#     
-#     #Preprocessed dataset
-#     if preproc_file_exists == True:
-#         major_ticks_preproc = np.linspace(0, total_hours_rounded_datapoints_preproc, num=total_hours_rounded_preproc+1) #set big ticks every hour
-#         minor_ticks_preproc = np.linspace(0, total_hours_rounded_datapoints_preproc, num=((total_hours_rounded_preproc*60)+1)) #set small ticks every minute
-#     
-#     #Raw dataset
-#     major_ticks_raw = np.linspace(0, total_hours_rounded_datapoints_raw, num=total_hours_rounded_raw+1) #set big ticks every hour
-#     minor_ticks_raw = np.linspace(0, total_hours_rounded_datapoints_raw, num=((total_hours_rounded_raw*60)+1)) #set small ticks every minute
-#     
-#     #%% Plot raw and preprocessed files
-#     
-#     fig1 = plt.figure()
-#     
-#     if preproc_file_exists == True: #if there is a preprocessed file corresponding to the raw one, make a plot comparing the two.
-#         #Preprocessed dataset
-#         fig1_top = fig1.add_subplot(2,1,1)
-#         fig1_top.plot(data_preproc, color='black',  marker='None', linewidth=0.05) 
-#         fig1_top.set_ylabel('Power (arbitrary units)')
-#         fig1_top.set_xticks(major_ticks_preproc)
-#         fig1_top.set_xticks(minor_ticks_preproc, minor=True)
-#         fig1_top.grid(which='minor', alpha=0.2)
-#         fig1_top.grid(which='major', alpha=0.5)
-#         fig1_top.set_xticklabels(np.linspace(0, total_hours_rounded_preproc, num=total_hours_rounded_preproc+1))
-#         fig1_top.set_title('Preprocessed Data')
-#         
-#         #Raw dataset
-#         fig1_bottom = fig1.add_subplot(2,1,2)
-#         fig1_bottom.plot(data_raw, color='black', marker='None', linewidth=0.05) 
-#         fig1_bottom.set_xlabel('Time since start (hours)')
-#         fig1_bottom.set_ylabel('Power (arbitrary units)')
-#         fig1_bottom.set_xticks(major_ticks_raw)
-#         fig1_bottom.set_xticks(minor_ticks_raw, minor=True)
-#         fig1_bottom.grid(which='minor', alpha=0.2)
-#         fig1_bottom.grid(which='major', alpha=0.5)
-#         fig1_bottom.set_xticklabels(np.linspace(0, total_hours_rounded_raw, num=total_hours_rounded_raw+1))
-#         fig1_bottom.set_title('Raw data')
-#         
-#         # =============================================================================
-#         # 
-#         # HERE THE TIME FORMAT HAS BEEN SET BUT NOT THE SCALE/TIME STANDARD. THIS IS NOT PRECISE -- BUT ONLY FOR A PLOT SO THAT'S OK.
-#         # 
-#         # =============================================================================
-#         
-#         #now convert the GPS time string  into astropy time format
-#         start_time_GPS_astropy = Time(start_time_GPS, format='gps') 
-#         start_time_ISO_astropy = Time(start_time_GPS_astropy, format='iso')
-#         
-#         
-#         fig1.suptitle('Start of recording: ' + start_time_ISO_astropy.value)
-#         plt.subplots_adjust(hspace=0.5)
-#         
-#         
-#         plt.savefig('Plots/'+str(start_time_GPS)+'_Compare_GrahamPreproc_Raw'+flag+'.pdf') 
+#     HERE THE TIME FORMAT HAS BEEN SET BUT NOT THE SCALE/TIME STANDARD. THIS IS NOT PRECISE -- BUT ONLY FOR A PLOT SO THAT'S OK.
 # =============================================================================
+        
+    #now convert the GPS time string  into astropy time format
+    start_time_GPS_astropy = Time(start_time_GPS, format='gps') 
+    start_time_ISO_astropy = Time(start_time_GPS_astropy, format='iso')
+    
+    
+    fig1.suptitle('Start of recording: ' + start_time_ISO_astropy.value)
+    plt.subplots_adjust(hspace=0.5)
+    
+    
+    plt.savefig('Plots/'+str(start_time_GPS)+'_Compare_Cleaned_Raw'+flag+'.pdf') 
 

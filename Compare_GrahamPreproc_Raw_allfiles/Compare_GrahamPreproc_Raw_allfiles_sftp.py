@@ -87,7 +87,6 @@ for file_raw in raw_files:
     
     #%% Calculate values for axes and ticks
     
-    flag = '' #create a flag for data with different lengths
     
     #Raw dataset
     total_seconds_raw = len(data_raw)*sampling_period
