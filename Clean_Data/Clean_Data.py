@@ -43,7 +43,7 @@ one_minute_in_datapoints= one_second_in_datapoints * 60
 raw_files = glob.glob('/home/emma/Desktop/Raw_Datafiles/*-PSRB0329-2ms-sampling-dd.dat') #list of raw files on my computer
 
 for file_raw in raw_files: #go through each raw file
-    start_time_GPS = float(file_raw[:-29])
+    start_time_GPS = float(file_raw[33:-29])
     
     #if this file has already been cleaned, skip it and go to the next in raw_files
     if glob.glob('Cleaned_Data/'+str(start_time_GPS)+'_cleaned.dat') != []:
@@ -95,7 +95,7 @@ for file_raw in raw_files: #go through each raw file
     #%% Write the cleaned file
     
     #in the same way as a raw file, so can be opened the same way
-    handle_file_cleaned = open('Cleaned_Data/'+start_time_GPS+'_cleaned.dat', 'wb')
+    handle_file_cleaned = open('Cleaned_Data/'+str(start_time_GPS)+'_cleaned.dat', 'wb')
     data_cleaned_binary = np.array(data_cleaned, 'f4')
     data_cleaned_binary.tofile(handle_file_cleaned)
     handle_file_cleaned.close()
@@ -112,7 +112,9 @@ for file_raw in raw_files: #go through each raw file
         continue
 
     #%% Calculate values for axes and ticks
-     
+    
+    flag = ''
+    
     #Raw dataset
     total_seconds_raw = number_of_one_second_intervals
     total_hours_raw =  total_seconds_raw / 3600
