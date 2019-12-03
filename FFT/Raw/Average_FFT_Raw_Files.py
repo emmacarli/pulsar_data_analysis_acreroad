@@ -60,7 +60,7 @@ for file_raw in raw_files: #go through each raw file
 
 #%% Plot the result
 
-print(str(short_files)+'raw file(s) shorter than 4 hours.')
+print(str(short_files)+' raw file(s) shorter than 4 hours and not used in FFT.')
 
 fig1=plt.figure()
 ax1=plt.gca()
@@ -71,7 +71,7 @@ ax1.set_title('Averaged FFT of all raw files')
 ax1.set_yscale('log')
 
 #%% Save or load the result
-#np.savez('meanfft.npz',fft_total=fft_total, fft_total_time_axis=fft_total_time_axis)
-#meanfft = np.load('meanfft.npz')
+#np.savez('mean_raw_fft.npz',fft_total=fft_total, fft_total_time_axis=fft_total_time_axis)
+#meanfft = np.load('mean_raw_fft.npz')
 #fft_total = meanfft[fft_total]
 #fft_total_time_axis = meanfft[fft_total_time_axis]
