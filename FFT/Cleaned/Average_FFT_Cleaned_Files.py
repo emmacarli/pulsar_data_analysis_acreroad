@@ -75,3 +75,13 @@ ax1.set_yscale('log')
 #meanfft = np.load('mean_cleaned_fft.npz')
 #fft_total = meanfft[fft_total]
 #fft_total_time_axis = meanfft[fft_total_time_axis]
+
+#%% Some experimentation with looking at the peaks
+
+# =============================================================================
+# entries = find_peaks(np.abs(fft_total**2), threshold=1e8, distance=1000)[0]
+# frequencies =  fft_total_time_axis[entries]
+# plt.plot(frequencies, linestyle='none', marker='.')
+# plt.plot(frequencies, np.zeros(len(frequencies)), linestyle='none', marker='.')
+#
+# =============================================================================
