@@ -12,7 +12,7 @@ What I've run on my Ubuntu 18.04 64 bit to install PRESTO, for use in _Python_:
 
 	cd ~
 	mkdir PULSAR_SOFTWARES
-I know this is a spelling mistake I will never get rid of... RIP me.
+I know this is a spelling mistake I will never get rid of... RIP.
 
 	sudo apt-get install git libfftw3-bin libfftw3-dbg libfftw3-dev libfftw3-doc libfftw3-double3 libfftw3-long3 libfftw3-quad3 libfftw3-single3 pgplot5 csh automake gfortran libglib2.0-dev libccfits-dev libcfitsio5 libcfitsio-dev libx11-dev libpng-dev 
 
@@ -79,42 +79,27 @@ Got error "libpresto.so: cannot open shared object file: No such file or directo
 	cd lib
 	sudo cp libpresto.so /usr/lib
 
-Then my kernel was crashing completely, for the following tests (errors next to them):
+
+
+In Python, my kernel was crashing completely, for the following tests in test_presto_python.py (errors next to them):
 - Reading / Writing infiles (which I need) [no errors]
 - Allocation and freeing of memory [double free or corruption (out)]
 - Spectral power and spectral phase [double free or corruption (out)]
-- Tempo get baryv [At line 284 of file arrtim.f
-Fortran runtime error: Bad value during floating point read
+- Tempo get baryv [Fortran runtime error: Bad value during floating point read]
 
-Error termination. Backtrace:
-#0 0x7f8620a342da in ???
-#1 0x7f8620a34ec5 in ???
-#2 0x7f8620a3568d in ???
-#3 0x7f8620ba9afd in ???
-#4 0x7f8620bace38 in ???
-#5 0x7f8620bae4bc in ???
-#6 0x55bc1de1214b in arrtim_
-at /home/emma/PULSAR_SOFTWARES/tempo/src/arrtim.f:284
-#7 0x55bc1de517b9 in tempo
-at /home/emma/PULSAR_SOFTWARES/tempo/src/tempo.f:442
-#8 0x55bc1de0dcfe in main
-at /home/emma/PULSAR_SOFTWARES/tempo/src/tempo.f:511
 
-Error in chkfopen(): No such file or directory]
+Those are all Fortran errors. For all of them "Aborted (core dumped)"
+Using TEMPO on its own, I ran into the same problems.
 
-Those are all Fortran errors. 
-Rest was working fine. 
+Rest of PRESTO was working fine. 
 Seems to happen to someone else, could be an anaconda problem: https://github.com/scottransom/presto/issues/73
 
 
 Things tried:
-tried installing nvidia-cuda-dev and libcuda-340
-tried adding a pyslalib so file to my LIB path
+tried installing nvidia-cuda-dev and libcuda-340 (then undone)
+tried adding a pyslalib so file to my LIB path (then undone)
 ran pyslalib test which came out OK 'python test/test_slalib.py' in PULSAR_SOFTWARES/pyslalib
 
 
-Next up:
-try folding, ignoring the python_test
-if doesnt work, install from https://kernsuite.info/
 
 

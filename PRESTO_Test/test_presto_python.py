@@ -40,8 +40,8 @@ print("success")
 
 #%%
 
-
 # =============================================================================
+# 
 # print("Testing reading infiles...", end=' ')
 # x = presto.read_inffile(path.join(here, "1937_DM71.02_zerodm.inf"), verbose=False)
 # assert(x.telescope=="GBT")
@@ -50,8 +50,8 @@ print("success")
 # assert(x.numonoff==1)
 # assert(x.analyzer=="sransom")
 # print("success")
-# 
 # =============================================================================
+
 #%%
 
 
