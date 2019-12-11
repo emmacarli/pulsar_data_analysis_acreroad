@@ -33,12 +33,29 @@ A tz.in file has to be made as well, which contains observatory, observing frequ
 Here are the tempo options I used:
   -z	        Compute polynomial coefficients for predictions 
   -f<par>       Over-rides the default parameter file name with <par>
-I ran this command: tempo -z -f B0329+54.par
+I ran this command: tempo -z -f B0329+54.par and got a fortran error:
+At line 46 of file tzinit.f
+Fortran runtime error: End of file
+
+Error termination. Backtrace:
+#0  0x7faf11ae42da in ???
+#1  0x7faf11ae4ec5 in ???
+#2  0x7faf11ae568d in ???
+#3  0x7faf11c5ba33 in ???
+#4  0x7faf11c549c4 in ???
+#5  0x7faf11c560f9 in ???
+#6  0x55a8fe9d5948 in tzinit_
+	at /home/emma/PULSAR_SOFTWARES/tempo/src/tzinit.f:46
+#7  0x55a8fe9ce7e7 in tempo
+	at /home/emma/PULSAR_SOFTWARES/tempo/src/tempo.f:286
+#8  0x55a8fe98bcfe in main
+	at /home/emma/PULSAR_SOFTWARES/tempo/src/tempo.f:511
+
 
 
 Trying to use  -Z<par>=<val> New method for specifying polynomial coefficient calculations
                 Any -Z parameter invokes this mode and minimizes tempo output
-                -Z parameters are:
+                -Z parameters
                 Parameter: Default:      Description:
                 PSR                      Pulsar name (same as PULSAR)
                 PULSAR                   Pulsar name (same as PSR)

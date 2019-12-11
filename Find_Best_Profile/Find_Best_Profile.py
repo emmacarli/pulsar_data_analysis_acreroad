@@ -40,4 +40,4 @@ max_SNR_GPS = Time(max_SNR_MJD_astropy, format='gps')
 
 #%%
 
-print('The profile with the highest SNR was folded from the datafile which recording started on approximately'+str(max_SNR_GPS.value)+' GPS time.')
+print('The profile with the highest SNR was folded from the datafile which recording started on approximately '+str(max_SNR_GPS.value)+' GPS time.')
