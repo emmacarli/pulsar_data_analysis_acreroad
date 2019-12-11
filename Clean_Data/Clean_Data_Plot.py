@@ -58,7 +58,7 @@ for file_raw in raw_files: #go through each raw file
     
     #%% Access the cleaned data and handle exceptions
     try:
-        file_cleaned = 'Cleaned_Data/'+str(start_time_GPS)+'_cleaned.dat'
+        file_cleaned = '/home/emma/Desktop/Cleaned_Data/'+str(start_time_GPS)+'_cleaned.dat'
         handle_file_cleaned = open(file_cleaned)
         data_cleaned = np.fromfile(handle_file_cleaned,'f4')
     except FileNotFoundError:
