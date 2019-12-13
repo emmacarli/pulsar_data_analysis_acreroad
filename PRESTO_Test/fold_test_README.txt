@@ -18,7 +18,7 @@ Rest infile {Input data file name.  If the data is not in a recognized raw data 
 
 
 What I did:
-add observatory to obsys.dat in tempo (used the observatory long, lat, elev from Dr. Matt Pitkin's Presto trial) as such:
+add observatory to obsys.dat in tempo (used the observatory long, lat, elev from ettus' obsys.dat) as such:
  3573761.379   -269164.277      5258393.2217   1  ACRE ROAD           -  AR
 
 ran makeinf (see file - input some arbitrary values where I didn't know)
@@ -70,8 +70,14 @@ Trying to use  -Z<par>=<val> New method for specifying polynomial coefficient ca
                 TOBS       1             Observing time in hours
                                            (xxxM or xxxS for minutes or seconds)
 
+tempo -Z PSR=B0329+54 OBS=AR FREQ=407.5 TOBS=4.1 START=57969.13183339089 -f B0329+54.par 
+
+
 just returned usage. It would be good to be able to input start time and observing time.
+if can't fix this, could try PINT instead.
 TBC...
+
+
 
 
 
