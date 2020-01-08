@@ -3,7 +3,7 @@ ticks_in_minutes = False #decide whether to label data in minutes or hours
 # =============================================================================
 # 
 # This code plots raw data and data preprocessed using Graham's routine, for one recording session.
-# Author: Emma Carli emma.carli@outlook.com
+# Author: Emma Carli 
 #
 # =============================================================================
 

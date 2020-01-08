@@ -1,7 +1,7 @@
 # =============================================================================
 # 
 # This code plots a comparison of all raw and cleaned pulsar data files. 
-# Author: Emma Carli emma.carli@outlook.com
+# Author: Emma Carli 
 #
 # =============================================================================
 

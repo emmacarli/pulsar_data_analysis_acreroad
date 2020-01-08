@@ -1,7 +1,7 @@
 # =============================================================================
 # 
 # This code finds all the raw and preprocessed files on ettus and plots their dates of recording.
-# Author: Emma Carli emma.carli@outlook.com
+# Author: Emma Carli 
 # 
 # =============================================================================
 

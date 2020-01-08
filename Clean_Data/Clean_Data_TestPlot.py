@@ -4,7 +4,7 @@ ticks_in_minutes = False #decide whether to label data in minutes or hours
 # =============================================================================
 # 
 # This code cleans one raw pulsar data file and plots what happens to the data as it's cleaned.
-# Author: Emma Carli emma.carli@outlook.com
+# Author: Emma Carli 
 #
 # =============================================================================
 

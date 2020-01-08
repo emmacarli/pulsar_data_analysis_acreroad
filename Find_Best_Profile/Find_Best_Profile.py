@@ -1,8 +1,8 @@
 # =============================================================================
-# Mirror, mirror, on the wall, who is the best profile of them all?
+# 
 # Find profile with highest SNR within Graham's, to try out my folding on.
 # Author: Emma Carli
-# emma.carli@outlook.com
+# 
 # =============================================================================
 
 # =============================================================================

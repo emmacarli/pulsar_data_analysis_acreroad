@@ -1,7 +1,7 @@
 # =============================================================================
 # 
 # This code cleans all raw pulsar data files. 
-# Author: Emma Carli emma.carli@outlook.com
+# Author: Emma Carli 
 #
 # =============================================================================
 

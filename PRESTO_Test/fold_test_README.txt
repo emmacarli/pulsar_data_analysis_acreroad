@@ -1,4 +1,4 @@
-Author: Emma Carli 2019
+Author: Emma Carli 
 Trying out prepfold from PRESTO...
 
 List of options: https://github.com/scottransom/presto/blob/e461225ab1df5ae93e6397081daf1b020f15495e/clig/prepfold_cmd.cli

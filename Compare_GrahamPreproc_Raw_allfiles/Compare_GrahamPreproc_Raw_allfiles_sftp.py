@@ -3,7 +3,7 @@
 # This code plots raw data and data preprocessed using Graham's routine.
 # PDFs are useful to save all the plots but interactive plots can be looked at with more precision, although individually.
 # This code does not need to be run from ettus. I have a local copy of the raw files and download Graham's preprocessed files on campus or using a VPN. 
-# Author: Emma Carli emma.carli@outlook.com
+# Author: Emma Carli 
 #
 # =============================================================================
 

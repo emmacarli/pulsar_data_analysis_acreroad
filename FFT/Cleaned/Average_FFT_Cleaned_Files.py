@@ -1,7 +1,7 @@
 # =============================================================================
 # 
 # This code plots an average FFT transform of all cleaned datafiles, cropped at 4 hours.
-# Author: Emma Carli emma.carli@outlook.com
+# Author: Emma Carli 
 #
 # =============================================================================
 
