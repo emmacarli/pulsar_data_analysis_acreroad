@@ -105,7 +105,9 @@ I chose 40 mins for nspan minutes as I was getting a "tspan too short" error bef
 I get errors: "no clock corrections available for clock UTC(acre) for MJD 57969.1", "MJD is outside of UT1 table range  (MJD 57969.1)". So the ephemeris available stops before 2017? Need to update it. or maybe try with integer dates.
 
 
-I'm gonna try using PINT instead because it's so much more user-friendly, modern etc. Also better to do everything from my computer!
+I'm gonna try using PINT instead because it's so much more user-friendly, modern etc. It tries to include a lot of TEMPO2. Also better to do everything from my computer.
+Get same error in PINT but now should be easier to fix hopefully! 
+WARNING: Data points out of range in clock file '/home/emma/anaconda3/lib/python3.7/site-packages/PINT/src/pint/datafiles/time.dat' [pint.observatory.clock_file]
 
 
 
