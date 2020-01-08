@@ -105,7 +105,9 @@ I chose 40 mins for nspan minutes as I was getting a "tspan too short" error bef
 I get errors: "no clock corrections available for clock UTC(acre) for MJD 57969.1", "MJD is outside of UT1 table range  (MJD 57969.1)". So the ephemeris available stops before 2017? Need to update it. or maybe try with integer dates.
 
 
-I'm gonna try using PINT instead because it's so much more user-friendly, modern etc.
+I'm gonna try using PINT instead because it's so much more user-friendly, modern etc. Also better to do everything from my computer!
+
+
 
 
 
