@@ -1,3 +1,4 @@
+Author: Emma Carli 2019
 Sources:
 https://blog.csdn.net/sinat_34850075/article/details/52434526
 https://github.com/scottransom/presto/blob/master/INSTALL
@@ -82,17 +83,19 @@ Got error "libpresto.so: cannot open shared object file: No such file or directo
 
 
 In Python, my kernel was crashing completely, for the following tests in test_presto_python.py (errors next to them):
-- Reading / Writing infiles (which I need) [no errors]
+- Reading / Writing infiles [no error came out]
 - Allocation and freeing of memory [double free or corruption (out)]
 - Spectral power and spectral phase [double free or corruption (out)]
 - Tempo get baryv [Fortran runtime error: Bad value during floating point read]
+The rest of the test_presto_python.py script was working fine.
 
 
 Those are all Fortran errors. For all of them "Aborted (core dumped)"
-Using TEMPO on its own, I ran into the same problems.
+Using TEMPO on its own, I ran into the same problems. (See fold_test_README.txt)
+So I could have a problem with Fortran on my computer.
 
-Rest of PRESTO was working fine. 
-Seems to happen to someone else, could be an anaconda problem: https://github.com/scottransom/presto/issues/73
+Rest of what I tried in PRESTO from command line was working fine. 
+Seems to happen to someone else, could also be an anaconda problem: https://github.com/scottransom/presto/issues/73
 
 
 Things tried:
