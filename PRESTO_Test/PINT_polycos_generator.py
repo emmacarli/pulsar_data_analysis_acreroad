@@ -15,9 +15,10 @@ get_ipython().magic('reset -f')
 #%% Import packages
 from pint import polycos, observatory, models
 import astropy
-import sys
+import sys, os
 
 #%% Start a log
+os.rename('PINT_polycos_generator.log','PINT_polycos_generator.log~')
 log_handle = open('PINT_polycos_generator.log', 'w')
 
 sys.stdout = log_handle
@@ -46,7 +47,7 @@ B032954_model = models.model_builder.get_model('B0329+54.par')
 
 #%% Generate polycos
 pl = polycos.Polycos() #initiate an empty polycos instance
-pl.generate_polycos(model = B032954_model, mjdStart = 57969.1, mjdEnd = 57969.4, obs = 'acre', segLength = 10, ncoeff = 5, obsFreq = 407.5, method = 'TEMPO') #note segment length in minutes, observing frequency in MHz, method TEMPO2 unavailable
+pl.generate_polycos(model = B032954_model, mjdStart = 57969.1, mjdEnd = 57969.4, obs = 'acre', segLength = 5, ncoeff = 12, obsFreq = 407.5, method = 'TEMPO') #note segment length in minutes, observing frequency in MHz, method TEMPO2 unavailable
 
 #%% Write to TEMPO style polyco table (PRESTO uses these for folding)
 pl.write_polyco_file(format='tempo', filename='PINT_polycos.dat')
