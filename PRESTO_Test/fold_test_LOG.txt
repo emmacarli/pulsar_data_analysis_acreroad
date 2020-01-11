@@ -2,34 +2,27 @@ Author: Emma Carli
 Trying out prepfold from PRESTO...
 
 List of options: https://github.com/scottransom/presto/blob/e461225ab1df5ae93e6397081daf1b020f15495e/clig/prepfold_cmd.cli
-Useful options:
-Flag   -topo    topo    {Fold the data topocentrically (i.e. don't barycenter)}
-Flag   -zerodm  zerodm  {Subtract the mean of all channels from each sample (i.e. remove zero DM)}
-Flag   -absphase absphase  {Use the absolute phase associated with polycos}
-Flag   -noclip  noclip  {Do not clip the data.  (The default is to _always_ clip!)}
-Flag   -noxwin  noxwin  {Do not show the result plots on-screen, only make postscript files}
-Flag   -nosearch nosearch {Show but do not search the p/pdot and/or DM phase spaces}
-Flag   -scaleparts scaleparts {Scale the part profiles independently}
-Flag   -justprofs justprofs {Only output the profile portions of the plot}
-String -par parname {Name of a TEMPO par file from which to get PSR params}
-String -polycos polycofile {File containing TEMPO polycos for psrname (not required)}
+
 
 Rest infile {Input data file name.  If the data is not in a recognized raw data format, it should be a file containing a time series of single-precision floats or short ints.  In this case a '.inf' file with the same root filename must also exist (Note that this means that the input data file must have a suffix that starts with a period)}
-I've tried other options: timing, scaleparts, fixchi, clip, barypolycos, absphase, topo. See PRESTO usage.
+
 
 
 
 What I did:
-ran makeinf (see file - input some arbitrary values where I didn't know)
+ran makeinf (see inf file)
 created B0329+54.par made from ATNF catalogue : https://www.atnf.csiro.au/research/pulsar/psrcat/proc_form.php?version=1.62&startUserDefined=true&c1_val=&c2_val=&c3_val=&c4_val=&sort_attr=jname&sort_order=asc&condition=&pulsar_names=B0329%2B54&ephemeris=short&submit_ephemeris=Get+Ephemeris&coords_unit=raj%2Fdecj&radius=&coords_1=&coords_2=&style=Long+with+last+digit+error&no_value=*&fsize=3&x_axis=&x_scale=linear&y_axis=&y_scale=linear&state=query
 
 ran prepfold -double -noxwin -par B0329+54.par bestprofile_1185851408.100563_cleaned_2minsigmaclip.dat  
-The polycos are produced but they seem to not take into account observatory location. I went to using PINT instead for the polycosT.
+The polycos are produced but they do not take into account observatory location: code -1 for observatory in the polycos file means SSB. I went to using PINT instead for the polycos. Why is the Doppler shift 0?!!!!!!!
 
 Then I ran:
-prepfold -polycos PINT_polycos.dat -par B0329+54.par -double -noxwin  bestprofile_1185851408.100563_cleaned_2minsigmaclip.dat  
-I'm pretty sure PRESTO is not using my polycos.
-https://www.google.com/search?q=%22presto%22++%22polycos%22
+prepfold -fine -polycos PINT_polycos.dat -par B0329+54.par -double -noxwin  bestprofile_1185851408.100563_cleaned_2minsigmaclip.dat  
+I've tried other options: timing, scaleparts, fixchi, clip, barypolycos, absphase, topo.
+I'm pretty sure PRESTO is not using my polycos. I've asked Dr. Pittkin.
+
+
+
 
 
 

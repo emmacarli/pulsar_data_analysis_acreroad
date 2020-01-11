@@ -15,10 +15,9 @@ get_ipython().magic('reset -f')
 #%% Import packages
 from pint import polycos, observatory, models
 import astropy
-import sys, os
+import sys
 
 #%% Start a log
-os.rename('PINT_polycos_generator.log','PINT_polycos_generator.log~')
 log_handle = open('PINT_polycos_generator.log', 'w')
 
 sys.stdout = log_handle
