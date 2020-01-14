@@ -16,10 +16,18 @@ created B0329+54.par made from ATNF catalogue : https://www.atnf.csiro.au/resear
 ran prepfold -double -noxwin -par B0329+54.par bestprofile_1185851408.100563_cleaned_2minsigmaclip.dat  
 The polycos are produced but they do not take into account observatory location: code -1 for observatory in the polycos file means SSB. I went to using PINT instead for the polycos. Why is the Doppler shift 0?!!!!!!!
 
-Then I ran:
-prepfold -fine -polycos PINT_polycos.dat -par B0329+54.par -double -noxwin  bestprofile_1185851408.100563_cleaned_2minsigmaclip.dat  
+Then I ran (Dr. Pitkin kindly helped me fix my command - no par file when using external polycos):
+prepfold -fine -polycos PINT_polycos.dat -psr 0332+5434 -double -noxwin  bestprofile_1185851408.100563_cleaned_2minsigmaclip.dat  
 I've tried other options: timing, scaleparts, fixchi, clip, barypolycos, absphase, topo.
-I'm pretty sure PRESTO is not using my polycos. I've asked Dr. Pittkin.
+
+I get the same error as in TEMPO2. Seems PRESTO isn't reading the polycos well:
+"Read 0 set(s) of polycos for PSR 0332+5434 at 57969.131833390893 (DM = 4.6488e-310)
+MJD 57969.132 out of range (    0.000 to     0.000)
+isets = 0"
+
+Ideas: try making the polycos from PRESTO one more time but try to have the observatory location in this time.
+Install tempo2
+ 
 
 
 
