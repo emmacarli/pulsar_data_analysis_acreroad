@@ -90,9 +90,7 @@ I get errors: "no clock corrections available for clock UTC(acre) for MJD 57969.
 
 
 
-
-
-Went to use PINT in the end, which worked.
+PINT worked but did not generate Doppler corrections.
 
 
 
