@@ -1,4 +1,4 @@
-Author: Emma Carli 2019
+Author: Emma Carli 
 Sources:
 https://blog.csdn.net/sinat_34850075/article/details/52434526
 https://github.com/scottransom/presto/blob/master/INSTALL
@@ -105,6 +105,6 @@ ran pyslalib test which came out OK 'python test/test_slalib.py' in PULSAR_SOFTW
 
 
 
-I uninstalled tempo going into the /home/emma/PULSAR_SOFTWARES/presto/ folder and running make uninstall. And removed TEMPO environment variable. Then installed tempo from kern.
+I uninstalled tempo going into the /home/emma/PULSAR_SOFTWARES/presto/ folder and running make uninstall. And removed TEMPO environment variable. Then installed tempo from kern. Does not work:  https://github.com/kernsuite/packaging/issues/215 . 
 
 

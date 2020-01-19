@@ -1,6 +1,6 @@
 Author: Emma Carli
 
-As it seemed PRESTO wasn't auto-generating correct polycos, I tried using TEMPO:
+As it seemed PRESTO wasn't auto-generating correct polycos (see fold_test_LOG.txt), I tried using TEMPO:
 
 What I did:
 Add observatory to obsys.dat in tempo.
@@ -27,6 +27,10 @@ Error termination. Backtrace:
 #8  0x55a8fe98bcfe in main
 	at /home/emma/PULSAR_SOFTWARES/tempo/src/tempo.f:511
 
+This is why PRESTO couldn't call TEMPO internally.
+
+
+
 
 
 Trying to use  -Z<par>=<val> New method for specifying polynomial coefficient calculations
@@ -46,10 +50,10 @@ Trying to use  -Z<par>=<val> New method for specifying polynomial coefficient ca
                 TOBS       1             Observing time in hours
                                            (xxxM or xxxS for minutes or seconds)
 
-tempo -Z PSR=B0329+54 OBS=AR FREQ=407.5 TOBS=4.1 START=57969.13183339089 -f B0329+54.par 
+tempo -ZPSR=B0329+54 -ZOBS=AR -ZFREQ=407.5 -ZTOBS=4.1 -ZSTART=57969.1
+Doesn't work either.
 
 
-just returned usage. It would be good to be able to input start time and observing time.
 
 My confusion was that error thrown out by presto is same as tempo
 While presto problem seems to be unsolvable and related to having anaconda only: https://github.com/scottransom/presto/issues/73 
@@ -89,13 +93,25 @@ I get errors: "no clock corrections available for clock UTC(acre) for MJD 57969.
 
 
 
-PINT worked but did not generate Doppler corrections.
 
 
-Back to using TEMPO again
-tempo -ZPSR=B0329+54 -ZOBS=AR -ZFREQ=407.5 -ZTOBS=4.1 -ZSTART=57969.1 should be correct syntax, it doesn't return just usage now.
 
-Problem upon installation of TEMPO from kern suite 5 : https://github.com/kernsuite/packaging/issues/215
+
+
+I went to PINT as it sounded more simple to do things (e.g. fixing errors) directly on my computer, and in Python. PINT worked but did not generate Doppler corrections: https://github.com/nanograv/PINT/issues/595
+
+
+
+So I went to using TEMPO+TEMPO2 on my computer by installing with KERN, but both installs did not work: https://github.com/kernsuite/packaging/issues/215 .
+Last option not tried would be installing TEMPO2 from source.
+
+
+
+
+
+
+
+
 
 
 
