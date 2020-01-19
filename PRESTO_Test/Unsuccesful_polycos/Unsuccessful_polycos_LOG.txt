@@ -3,8 +3,7 @@ Author: Emma Carli
 As it seemed PRESTO wasn't auto-generating correct polycos, I tried using TEMPO:
 
 What I did:
-Add observatory to obsys.dat in tempo (used the observatory long, lat, elev from ettus' obsys.dat) as such:
- 3573761.379   -269164.277      5258393.2217   1  ACRE ROAD           -  AR
+Add observatory to obsys.dat in tempo.
 
 A tz.in file has to be made as well, which contains observatory, observing frequency and pulsar name.
 Here are the tempo options I used:
@@ -91,6 +90,14 @@ I get errors: "no clock corrections available for clock UTC(acre) for MJD 57969.
 
 
 PINT worked but did not generate Doppler corrections.
+
+
+Back to using TEMPO again
+tempo -ZPSR=B0329+54 -ZOBS=AR -ZFREQ=407.5 -ZTOBS=4.1 -ZSTART=57969.1 should be correct syntax, it doesn't return just usage now.
+
+Problem upon installation of TEMPO from kern suite 5 : https://github.com/kernsuite/packaging/issues/215
+
+
 
 
 

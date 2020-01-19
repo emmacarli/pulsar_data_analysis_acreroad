@@ -2,9 +2,9 @@
 *                                                     *
 *                 TEMPO version 13.000                *
 *           Analysis of pulsar timing data            *
-*         TEMPO git version date:  2019-09-03         *
-*         TEMPO git version id:    c872b86            *
-*         Run time:  11-DEC-19  17:20:41 UTC          *
+*         TEMPO git version date:                     *
+*         TEMPO git version id:                       *
+*         Run time:  19-JAN-20  10:21:24 UTC          *
 *                                                     *
 *******************************************************
 
@@ -14,37 +14,3 @@
      Observatory     Geodetic lat   Geodetic long   Elevation
                       ddmmss.ss       ddmmss.ss         m
 
-1 GB GBT XYZ           882589.65     -4924872.32   3943729.3
-2 QU QUABBIN           422333.20       722040.40       306.0
-3 AO ARECIBO XYZ      2390490.00     -5564764.00   1994727.0
-4 HO Hobart, Tasm     -424818.00     -1472621.00        50.0
-5 PR PRINCETON         402047.70       743853.85        43.0
-6 VL VLA XYZ         -1601192.00     -5041981.40   3554871.4
-7 PK PARKES  XYZ     -4554231.50      2816759.10  -3454036.3
-8 JB JODRELL BANK     3822626.04      -154105.65   5086486.0
-9 G3 GB 300FT          382546.30       795056.36       893.7
-A G1 GB 140FT          382615.41       795009.61       880.9
-B G8 GB 85-3           382545.90       795036.87       835.8
-C V2 VLA SITE          340443.50      1073703.82      2124.0
-D BO NORTHERN CRO      443118.48      -113848.48        25.0
-E MO MOST            -4483311.64      2648815.92  -3671909.3
-F NC Nancay           4324165.81       165927.11   4670132.8
-G EF Effelsberg       4033949.50       486989.40   4900430.8
-H J2 JB_MKII          3822846.76      -153802.28   5086285.9
-I WS WSRT             3828445.66       445223.60   5064921.6
-K FA FAST            -1668557.00      5506838.00   2744934.0
-M MK MEERKAT          5109360.13      2006852.59  -3238948.1
-R GM GMRT             1656342.30      5797947.77   2073243.2
-S SH SHAO 65m XYZ    -2826711.95      4679231.63   3274665.7
-T LF LOFAR            3826577.46       461022.62   5064892.5
-U MW MWA             -2559454.08      5095372.14  -2849057.2
-V PV PICO VELETA      5088964.00       301689.80   3825017.0
-X LW LWA1            -1602206.59     -5042244.29   3554076.3
-Y CH CHIME (real)    -2058795.00     -3621559.00   4814280.0
-Z SR SRT              4865182.77       791922.69   4035137.2
-- LS LWA-SV          -1531155.54     -5045324.31   3579583.9
-- AR ACRE ROAD        3573761.38      -269164.28   5258393.2
-
-Input data from ,  Parameters from B0329+54.par
-Observatory data from /home/emma/PULSAR_SOFTWARES/tempo/obsys.dat            
-Tempo command: tempo -z -f B0329+54.par

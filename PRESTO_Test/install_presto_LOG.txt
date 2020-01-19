@@ -91,7 +91,7 @@ The rest of the test_presto_python.py script was working fine.
 
 
 Those are all Fortran errors. For all of them "Aborted (core dumped)"
-Using TEMPO on its own, I ran into the same problems. (See fold_test_README.txt)
+Using TEMPO on its own, I ran into the same problems. (See Unsuccessful_polycos_LOG.txt)
 So I could have a problem with Fortran on my computer.
 
 Rest of what I tried in PRESTO from command line was working fine. 
@@ -104,5 +104,7 @@ tried adding a pyslalib so file to my LIB path (then undone)
 ran pyslalib test which came out OK 'python test/test_slalib.py' in PULSAR_SOFTWARES/pyslalib
 
 
+
+I uninstalled tempo going into the /home/emma/PULSAR_SOFTWARES/presto/ folder and running make uninstall. And removed TEMPO environment variable. Then installed tempo from kern.
 
 
