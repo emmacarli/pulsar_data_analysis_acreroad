@@ -8,7 +8,7 @@ nsubint          Number of sub-integrations                        64
 type             Observation type                                  Pulsar
 site             Telescope name                                    Acre
 name             Source name                                       PSR_0332+5434
-coord            Source coordinates                                00:00:00.000+00:00:00.00
+coord            Source coordinates                                03:32:59.4096+54:34:43.329
 freq             Centre frequency (MHz)                            407.5
 bw               Bandwidth (MHz)                                   2
 dm               Dispersion measure (pc/cm^3)                      0

@@ -54,6 +54,13 @@ psrplot -p Y bestprofile_1185851408.100563_cleaned_2minsigmaclip_0.00-0.70_PSR_0
 Tempo2 won't install either so can't make polycos like that. Try folding with psrchive using PINT-produced polycos.
 #############################################################################################################################
 Tests with PINT:
+psrconv bestprofile_1185851408.100563_cleaned_2minsigmaclip.ascii
+psredit psredit -c name=PSR_0332+5434,coord=03:32:59.4096+54:34:43.329,site=acre,freq=407.5,bw=1,dm=0 -m  bestprofile_1185851408.100563_cleaned_2minsigmaclip.rf
+
+
+Some important ones couldnt be set like start date and duration?? why?
+
+Unsure what to use for folding here. psrsh -> fold? phase crunch?
 
 
 
