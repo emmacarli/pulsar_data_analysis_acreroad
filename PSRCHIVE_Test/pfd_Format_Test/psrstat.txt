@@ -1,0 +1,130 @@
+psrstat bestprofile_1185851408.100563_cleaned_2minsigmaclip_0.00-0.70_PSR_0332+5434.rf
+FITSArchive::load_Receiver FD_POLN unknown; assuming linear
+file             Name of the file                                  bestprofile_1185851408.100563_cleaned_2minsigmaclip_0.00-0.70_PSR_0332+5434.rf
+nbin             Number of pulse phase bins                        64
+nchan            Number of frequency channels                      1
+npol             Number of polarizations                           1
+nsubint          Number of sub-integrations                        64
+type             Observation type                                  Pulsar
+site             Telescope name                                    Acre
+name             Source name                                       PSR_0332+5434
+coord            Source coordinates                                00:00:00.000+00:00:00.00
+freq             Centre frequency (MHz)                            407.5
+bw               Bandwidth (MHz)                                   2
+dm               Dispersion measure (pc/cm^3)                      0
+rm               Rotation measure (rad/m^2)                        0
+dmc              Dispersion corrected                              0
+rmc              Faraday Rotation corrected                        0
+polc             Polarization calibrated                           0
+scale            Data units                                        FluxDensity
+state            Data state                                        Intensity
+length           Observation duration (s)                          10223.616
+int*:@           int:help for attribute list                       
+ext:obs_mode     Observation Mode                                  PSR
+ext:obsfreq      Centre frequency                                  407.5
+ext:obsbw        Bandwidth                                         2
+ext:obsnchan     Number of channels                                1
+ext:hdrver       Header Version                                    6.1
+ext:date         File Creation Date                                2020-01-19T13:01:52
+ext:coord_md     Coordinate mode                                   J2000
+ext:equinox      Coordinate equinox                                2000
+ext:trk_mode     Tracking mode                                     UNSET
+ext:bpa          Beam position angle                               0
+ext:bmaj         Beam major axis                                   0
+ext:bmin         Beam minor axis                                   0
+ext:stt_date     Start UT date                                     UNSETTUNSE
+ext:stt_time     Start UT                                          
+ext:stt_imjd     Start MJD                                         57969
+ext:stt_smjd     Start second                                      11469
+ext:stt_offs     Start fractional second                           0.716885627680063
+ext:stt_lst      Start LST                                         0
+ext:stt_crd1     Start coord 1                                     00:00:00.000
+ext:stt_crd2     Start coord 2                                     +00:00:00.000
+ext:stp_crd1     Stop coord 1                                      UNSET
+ext:stp_crd2     Stop coord 2                                      UNSET
+ext:ra           Right ascension                                   00:00:00.000
+ext:dec          Declination                                       +00:00:00.000
+obs:observer     Observer name(s)                                  
+obs:projid       Project name                                      
+rcvr:name        Receiver name                                     
+rcvr:basis       Basis of receptors                                lin
+rcvr:hand        Hand of receptor basis                            +1
+rcvr:sa          Symmetry angle of receptor basis                  45deg
+rcvr:rph         Reference source phase                            0deg
+rcvr:fdc         Receptor basis corrected                          0
+rcvr:prc         Receptor projection corrected                     0
+rcvr:ta          Tracking angle of feed                            0deg
+be:name          Name of the backend instrument                    
+be:phase         Phase convention of backend                       +0
+be:dcc           Downconversion conjugation corrected              0
+be:phc           Phase convention corrected                        0
+be:delay         Backend propn delay from digi. input.             0
+be:config        Configuration filename                            
+be:nrcvr         Number of receiver channels                       0
+be:tcycle        Correlator cycle time                             0
+hist:nrow        Number of rows in history                         1
+hist:nbin_prd    Nr of bins per period                             64
+hist:tbin        Time per bin or sample                            0.0111644020933203
+hist:chan_bw     Channel bandwidth                                 2
+hist:cal_file    Calibrator filename                               NONE
+aux:dm_model     Auxiliary dispersion model                        NONE
+aux:dmc          Auxiliary dispersion corrected                    0
+aux:rm_model     Auxiliary birefringence model                     NONE
+aux:rmc          Auxiliary birefringence corrected                 0
+sub:int_type     Time axis (TIME, BINPHSPERI, BINLNGASC, etc)      TIME
+sub:int_unit     Unit of time axis (SEC, PHS (0-1), DEG)           SEC
+sub:tsamp        [s] Sample interval for SEARCH-mode data          0
+sub:nbits        Nr of bits/datum (SEARCH mode 'X' data, else 1)   -1
+sub:nch_strt     Start channel/sub-band number (0 to NCHAN-1)      -1
+sub:nsblk        Samples/row (SEARCH mode, else 1)                 -1
+sub:nrows        Nr of rows in subint table (search mode)          64
+sub:zero_off     Zero offset for SEARCH-mode data                  0
+sub:signint      1 for signed ints in SEARCH-mode data, else 0     0
+subint           Sub-integration index                             0
+chan             Frequency channel index                           0
+pol              Polarization index                                0
+^on[:@]          Install on-pulse estimator                        consecutive:{threshold=3,consecutive=3}
+^off[:@]         Install off-pulse estimator                       minimum:{smooth[:@]=mean:{width=0.150000005960464%turn},find_min=1,search=0:0%turn,found=0:0%turn}
+^snr[:@]         Install signal-to-noise ratio estimator           phase
+on[:@]           On-pulse estimator                                consecutive:{threshold=3,consecutive=3}
+on:count         Count of selected phase bins                      0
+on:start         Start of the phase region                         
+on:end           End of the phase region                           
+on:sum           Sum of selected phase bins                        0
+on:min           Minimum of selected phase bins                    3.40282e+38
+on:max           Maximum of selected phase bins                    -3.40282e+38
+on:avg           Average of selected phase bins                    0
+on:rms           Standard deviation of selected phase bins         0
+on:med           Median of selected phase bins                     0
+on:mdm           Median difference from the median                 0
+off[:@]          Off-pulse estimator                               normal:{threshold=1}
+off:count        Count of selected phase bins                      8
+off:start        Start of the phase region                         16,28,46,55
+off:end          End of the phase region                           19,28,47,55
+off:sum          Sum of selected phase bins                        -284.879807472229
+off:min          Minimum of selected phase bins                    -97.8138
+off:max          Maximum of selected phase bins                    27.3211
+off:avg          Average of selected phase bins                    -35.61
+off:rms          Standard deviation of selected phase bins         41.6873
+off:med          Median of selected phase bins                     -36.2717
+off:mdm          Median difference from the median                 37.8088
+all:count        Count of selected phase bins                      64
+all:start        Start of the phase region                         
+all:end          End of the phase region                           
+all:sum          Sum of selected phase bins                        583.960373878479
+all:min          Minimum of selected phase bins                    -131.602
+all:max          Maximum of selected phase bins                    164.418
+all:avg          Average of selected phase bins                    9.12438
+all:rms          Standard deviation of selected phase bins         62.9129
+all:med          Median of selected phase bins                     16.9407
+all:mdm          Median difference from the median                 57.9554
+weff             Effective pulse width (turns)                     -nan
+width[:@]        Pulse width (turns)                               0%turn
+snr[:@]          Signal-to-noise ratio                             3.63424968719482
+nfnr             Noise-to-Fourier-noise ratio                      1.17517185211182
+ncal             Number of CAL transitions                         0
+d2bit            2-bit distortion                                  0
+wtfreq           Weighted frequency                                407.5
+bwidth           Phase bin width                                   0.0111644020933221
+dsmear           Dispersive smearing in worst channel              0
+
