@@ -11,4 +11,6 @@ PMDEC           -10.37                        5.000e-02
 POSEPOCH        46473.00
 UNITS           TDB
 DM              0
+TZRSITE         AR
+TZRFREQ         407.5
 

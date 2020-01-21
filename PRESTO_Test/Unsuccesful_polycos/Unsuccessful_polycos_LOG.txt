@@ -5,6 +5,9 @@ As it seemed PRESTO wasn't auto-generating correct polycos (see fold_test_LOG.tx
 What I did:
 Add observatory to obsys.dat in tempo.
 
+################################################################
+-z mode!
+
 A tz.in file has to be made as well, which contains observatory, observing frequency and pulsar name.
 Here are the tempo options I used:
   -z	        Compute polynomial coefficients for predictions 
@@ -27,38 +30,12 @@ Error termination. Backtrace:
 #8  0x55a8fe98bcfe in main
 	at /home/emma/PULSAR_SOFTWARES/tempo/src/tempo.f:511
 
-This is why PRESTO couldn't call TEMPO internally.
-
-
-
-
-
-Trying to use  -Z<par>=<val> New method for specifying polynomial coefficient calculations
-                Any -Z parameter invokes this mode and minimizes tempo output
-                -Z parameters
-                Parameter: Default:      Description:
-                PSR                      Pulsar name (same as PULSAR)
-                PULSAR                   Pulsar name (same as PSR)
-                OBS                      Observatory (same as SITE)
-                SITE                     Observatory (same as OBS)
-                OUT        polyco.dat    Output file name
-                START      current time  Start time for polyco block
-                NCOEFF     15            Number of coefficients
-                FREQ       1420          Radio frequency of observation
-                SPAN       60            Time span in seconds for polyco block
-                                           (xxxH or xxxM for hours or minutes)
-                TOBS       1             Observing time in hours
-                                           (xxxM or xxxS for minutes or seconds)
-
-tempo -ZPSR=B0329+54 -ZOBS=AR -ZFREQ=407.5 -ZTOBS=4.1 -ZSTART=57969.1
-Doesn't work either.
-
-
-
+This is possibly why PRESTO couldn't call TEMPO internally.
 My confusion was that error thrown out by presto is same as tempo
 While presto problem seems to be unsolvable and related to having anaconda only: https://github.com/scottransom/presto/issues/73 
 But tempo isn't using python!
 Graham suggests the following explanation : "Fortran compile error is because it's compiling from source. When you install Tempo it will install the source code and then compiles it with GCC, which has option flags for Fortran. Some version of something won't be compatible with this compiling. Could be anaconda with Presto and something else with Tempo."
+##################################################################################
 
 
 
@@ -66,13 +43,15 @@ Graham suggests the following explanation : "Fortran compile error is because it
 
 
 
+###########################################################
+KERN
+So I went to using TEMPO+TEMPO2 on my computer by installing with KERN, but both installs did not work: https://github.com/kernsuite/packaging/issues/215 .
+##########################################################
 
 
 
 
-
-
-
+####################################################
 Then I tried using TEMPO2 on Ettus:
 In tempo2, you can make polycos in the format of tempo with the option -polyco "mjd1 mjd2 nspan ncoeff maxha site_code freq"
 From tempo2 manual:
@@ -88,23 +67,15 @@ So I ran: tempo2 -f B0329+54.par -polyco "57969.1 57969.4 40 12 8 acre 407.5" -t
 Note: acre is the tempo2 keyword in ettus -- observatory codes work by keyword in tempo2.
 I chose 40 mins for nspan minutes as I was getting a "tspan too short" error before. 
 I get errors: "no clock corrections available for clock UTC(acre) for MJD 57969.1", "MJD is outside of UT1 table range  (MJD 57969.1)". So the ephemeris available stops before 2017? Need to update it. or maybe try with integer dates.
+#####################################################
 
 
 
 
 
-
-
-
-
-
+###########################################################
 I went to PINT as it sounded more simple to do things (e.g. fixing errors) directly on my computer, and in Python. PINT worked but did not generate Doppler corrections: https://github.com/nanograv/PINT/issues/595
-
-
-
-So I went to using TEMPO+TEMPO2 on my computer by installing with KERN, but both installs did not work: https://github.com/kernsuite/packaging/issues/215 .
-Last option not tried would be installing TEMPO2 from source.
-
+#######################################################
 
 
 
