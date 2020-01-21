@@ -43,6 +43,7 @@ PRESTOArchive warning: Start time has second fraction *ms.  Not rounding to near
 
 
 psredit -c coord=03:32:59.4096+54:34:43.329 -m bestprofile_1185851408.100563_cleaned_2minsigmaclip_0.00-0.70_PSR_0332+5434.rf
+psredit -c name=J0332+5434 -m bestprofile_1185851408.100563_cleaned_2minsigmaclip_0.00-0.70_PSR_0332+5434.rf
 
 FITSArchive::load_Receiver FD_POLN unknown; assuming linear
 bestprofile_1185851408.100563_cleaned_2minsigmaclip_0.00-0.70_PSR_0332+5434.rf
@@ -60,8 +61,14 @@ psrplot -p Y -c style=line bestprofile_1185851408.100563_cleaned_2minsigmaclip_0
 
 SHOULD I DO A PHASE SCRUNCH TO OBTAIN SAME NICE PLOTS AS PREPFOLD?
 #############################################################################################################################
+TOA find tests:
 
-
+pat -v -T -s gl98_408.epn -A PGS -f tempo2 -b -t bestprofile_1185851408.100563_cleaned_2minsigmaclip_0.00-0.70_PSR_0332+5434.rf
+Pulsar::ArrivalTime::get_toas WARNING 
+	signal state mismatch: Total Intensity != Stokes Parameters
+	number of bins mismatch: 64 != 443
+profile nbin=64 standard nbin=443
+Segmentation fault (core dumped)
 
 
 
