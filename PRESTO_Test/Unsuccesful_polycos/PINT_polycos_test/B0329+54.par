@@ -11,6 +11,6 @@ PMDEC           -10.37                        5.000e-02
 POSEPOCH        46473.00
 UNITS           TDB
 TZRMJD          57969.1
-TZRSITE         AR
+TZRSITE         acre
 TZRFRQ          407.5
 DM              0
