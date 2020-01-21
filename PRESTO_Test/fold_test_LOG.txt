@@ -15,6 +15,7 @@ created B0329+54.par made from ATNF catalogue : https://www.atnf.csiro.au/resear
 
 ran prepfold -double -noxwin -par B0329+54.par bestprofile_1185851408.100563_cleaned_2minsigmaclip.dat  
 The polycos are produced but they do not take into account observatory location: code -1 for observatory in the polycos file means SSB. This is probably from broken TEMPO installation, see Unsuccessful_polycos_LOG.txt and fold_test_LOG.txt. Went to using PINT polycos. (note: not sure what changed but even this does not work now -- polycos don't get generated)
+Can't get a TOA on that for the moment because it was made with the search option on. 
 
 
 Then I ran (Dr. Pitkin kindly helped me fix my command - no par file when using external polycos):
