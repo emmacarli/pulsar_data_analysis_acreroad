@@ -13,3 +13,9 @@ Clock/Time options:
 
 
 dspsr -B 2 -f 407.5 -k acre -N J0332+5434 -m 57969.13183339089 -P PINT_polycos.dat bestprofile_1185851408.100563_cleaned_2minsigmaclip.dat
+dspsr: Loading phase model from PINT_polycos.dat
+dspsr: Source name set to J0332+5434
+*** buffer overflow detected ***: dspsr terminated
+Aborted (core dumped)
+
+Possibly file too large.
