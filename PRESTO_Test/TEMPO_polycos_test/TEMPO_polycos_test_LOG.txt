@@ -20,5 +20,6 @@ Trying to use  -Z<par>=<val> New method for specifying polynomial coefficient ca
 
 After a reinstallation (post Kern), the Z mode seems to work.
 tempo  -ZOBS=AR -ZFREQ=407.5 -ZTOBS=4.1 -ZSTART=57969.1  -ZNCOEFF=15 -f B0329+54.par
+need to add PSR name and generate one polyco file for the whole year of observations.
 
 ##########################################

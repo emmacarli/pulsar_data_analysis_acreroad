@@ -1,0 +1,12 @@
+prepfold -timing -polycos polyco.dat -psr 0332+5434 -double -noxwin -end 0.7 bestprofile_1185851408.100563_cleaned_2minsigmaclip.dat  
+
+
+topo zerodm absphase runavg
+
+         -fixchi: Adjust the reduced chi^2 values so that off-pulse reduced chi^2 = 1
+timing no search? dont need psr command?
+
+
+
+prepfold -nosearch -polycos polyco.dat -psr 0332+5434 -double -noxwin -end 0.7 bestprofile_1185851408.100563_cleaned_2minsigmaclip.dat  
+works
