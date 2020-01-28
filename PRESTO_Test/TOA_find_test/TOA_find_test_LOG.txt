@@ -1,32 +1,28 @@
 The original fold has to either be done using "timing" or "nosearch".
-not tried in fold: 
 
 
 #########################################
-timing option: not tried, needs a par file so can't use that since have external polycos
+timing option: not input, needs a par file so can't use that since have external polycos
 prepfold -timing -polycos polyco.dat -psr 0332+5434 -double -noxwin -end 0.7 bestprofile_1185851408.100563_cleaned_2minsigmaclip.dat  
 
 ##########################################################
 
 ##########################################
 prepfold -nosearch -polycos polyco.dat -psr 0332+5434 -double -noxwin -end 0.7 bestprofile_1185851408.100563_cleaned_2minsigmaclip.dat  
-works, but 
+as input works, but 
 polyco file has to be renamed to classic format
-and can't be read ---> need to traceback
-#########################################
-
-
+and added AR to get_TOAs.py
 
 get_TOAs.py -n 1 -t bestprofile_1185851408.100563_cleaned_2minsigmaclip_0.00-0.70_PSR_0332+5434.pfd.bestprof  bestprofile_1185851408.100563_cleaned_2minsigmaclip_0.00-0.70_PSR_0332+5434.pfd
 Read 5 polycos for PSR 0332+5434
 AR                407.500 57969.1909948110104     3.26
+#########################################
 
 
+######################
+pygaussfit.py 
+Tried different boxes but same outcome.
+#####################
 
 
-Added AR to get_TOAs.py
-
-ideally replace bestprof by gl98_408.epn 
-to do this, need to convert it to a presto format using pygaussfit.py
-I tried, but I don't know how to save the fit and it doesn't look very precise???!
 
