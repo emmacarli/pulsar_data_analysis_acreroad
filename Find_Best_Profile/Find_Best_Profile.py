@@ -19,13 +19,16 @@ get_ipython().magic('reset -f')
 #%% Import packages
 import numpy as np
 from astropy.time import Time
+import glob
 
 #%% Read in Graham's TOAs
 TOAs_Graham = np.genfromtxt('Original_TOAs_by_Graham.txt', skip_header=1, usecols=(2,3), dtype=float) #columns 2 and 3 in the TEMPO .tim FORMAT 1 file is the MJD and its error 
 
 #%% Find the MJD of the first TOA for which I have a raw file
 
-minimum_GPS_time = Time(1178454286.107926, format='gps') #this is the first date at which I start having raw files. 
+cleaned_files = sorted(glob.glob('/home/emma/Desktop/Cleaned_Data/*_cleaned.dat'))
+
+minimum_GPS_time = Time(cleaned_files[0][32:-12], format='gps') #this is the first date at which I start having observations, extracted from the file name of the ordered cleaned files.
 for MJD_row, MJD in enumerate(TOAs_Graham[:,0]): #go through each Julian Date TOA, they are in increasing order
     if MJD > minimum_GPS_time.mjd:
         minimum_MJD = MJD
