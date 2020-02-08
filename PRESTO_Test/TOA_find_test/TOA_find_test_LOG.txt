@@ -22,6 +22,11 @@ AR                407.500 57969.1909948110104     3.26
 ######################
 pygaussfit.py 
 Tried different boxes but same outcome.
+
+get_TOAs.py -f -n 1 -g Jodrell_Template_Profile_I-Q_PRESTO_Gaussian_fit.gaussians bestprofile_1185851408.100563_cleaned_2minsigmaclip_0.00-0.70_PSR_0332+5434.pfd
+Read 5 polycos for PSR 0332+5434
+AR                407.500 57969.1909941827373  2385.18
+FFTFIT results:  b = 8794 +/- 793.8   SNR = 22.21 +/- 2.004
 #####################
 
 
