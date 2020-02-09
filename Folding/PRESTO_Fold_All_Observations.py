@@ -41,7 +41,7 @@ plt.rcParams["figure.figsize"] = [10,10]
 
 #%% Here change variables to test the analysis
 
-number_of_profile_bins = '256' #this is the number of phase bins in the folded profiles and in the total profile, it has to be a power of two!
+number_of_profile_bins = '512' #this is the number of phase bins in the folded profiles and in the total profile, it has to be a power of two!
 #otherwise, for folding, PRESTO defaults to the number of sampling bins which correspond to one folded period, in our case about 64, and for the total profile, it defaults to 128.
 absphase = '-absphase' #empty the string if don't want to fold in absolute phase
 
@@ -79,7 +79,7 @@ path_to_folded_profiles =  '/home/emma/Desktop/pulsardataprep_acreroad/Folding/P
 #%%Loop through observations
 
 
-bar = Bar('Processing', max=len(cleaned_files), suffix = '%(percent).1f%% - %(eta)ds') #create a progress bar
+bar = Bar('Processing', max=len(cleaned_files), suffix = '%(percent).1f%% - %(eta)d') #create a progress bar
 bar.check_tty = False
 
 for file_cleaned in cleaned_files:
@@ -222,6 +222,8 @@ for fold_file in fold_files:
         folds_filenames_list_handle.write("%s\n" % fold_file)
 
 PRESTO_totalprofile_command = 'sum_profiles.py -n '+number_of_profile_bins+' -g '+path_to_template_profile+' folds_filenames_list.txt'
+
+log_handle.write('PRESTO total profile command: ' + PRESTO_totalprofile_command+'\n')
 
 terminal_totalprofile_run = subprocess.Popen(PRESTO_totalprofile_command, stdin=subprocess.PIPE, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 output_totalprofile_run = terminal_totalprofile_run.communicate(input=b'\n \n \n \n')[0] #this program needs to have enter pressed twice
