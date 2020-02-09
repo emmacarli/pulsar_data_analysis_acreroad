@@ -209,7 +209,7 @@ PRESTO_TOAs_handle.close()
 PRESTO_TOAs_handle = open('PRESTO_TOAs.txt' , 'r')
 TEMPO_TOAs_handle = open('TEMPO_TOAs.txt', 'w')
 for line in PRESTO_TOAs_handle:
-    if 'AR                407.500' in line:
+    if 'a                407.500' in line:
         TEMPO_TOAs_handle.write(line)
 TEMPO_TOAs_handle.close()
 
