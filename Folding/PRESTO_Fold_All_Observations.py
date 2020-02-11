@@ -23,7 +23,8 @@ from My_Functions.update_text import update_text
 from shutil import copyfile
 import os
 from progress.bar import Bar
-
+import re
+import time
 
 
 #%% Set matplotlib general parameters
@@ -41,7 +42,7 @@ plt.rcParams["figure.figsize"] = [10,10]
 
 #%% Here change variables to test the analysis
 
-number_of_profile_bins = '512' #this is the number of phase bins in the folded profiles and in the total profile, it has to be a power of two!
+number_of_profile_bins = '1024' #this is the number of phase bins in the folded profiles and in the total profile, it has to be a power of two!
 #otherwise, for folding, PRESTO defaults to the number of sampling bins which correspond to one folded period, in our case about 64, and for the total profile, it defaults to 128.
 absphase = '-absphase' #empty the string if don't want to fold in absolute phase
 
@@ -79,7 +80,7 @@ path_to_folded_profiles =  '/home/emma/Desktop/pulsardataprep_acreroad/Folding/P
 #%%Loop through observations
 
 
-bar = Bar('Processing', max=len(cleaned_files), suffix = '%(percent).1f%% - %(eta)d') #create a progress bar
+bar = Bar('Processing', max=len(cleaned_files), suffix = '%(percent).1f%% - %(eta)ds') #create a progress bar
 bar.check_tty = False
 
 for file_cleaned in cleaned_files:
@@ -199,20 +200,35 @@ for file_cleaned in cleaned_files:
     
 #%% Clean up
 bar.finish()
+print('\n')
+print('\n')
 print('Polycos, folding and retrieving TOAs took '+str(bar.elapsed)+' s. Now making total profile.')
 os.remove('current_PRESTO_inf_file.inf')
-os.remove('polyco.dat')
+os.remove('polyco.dat') #this was the predictor file of the last processed observation
 PRESTO_TOAs_handle.close()
 
 #%% Write the TOAs to a TEMPO-readable file
 
 PRESTO_TOAs_handle = open('PRESTO_TOAs.txt' , 'r')
 TEMPO_TOAs_handle = open('TEMPO_TOAs.txt', 'w')
+FFTFIT_results_handle = open('FFTFIT_results.txt', 'w')
+
+#to find floats, intergers, and numbers with exponents in output files, we need to use regular expressions
+#this one was taken from https://stackoverflow.com/questions/4703390/how-to-extract-a-floating-number-from-a-string , second answer
+regexp_numeric_pattern = r'[-+]? (?: (?: \d* \. \d+ ) | (?: \d+ \.? ) )(?: [Ee] [+-]? \d+ ) ?'
+#this expression needs compiled by regexp
+any_number = re.compile(regexp_numeric_pattern, re.VERBOSE)
+
+
 for line in PRESTO_TOAs_handle:
+    if 'SNR' in line:
+        b, b_error, SNR, SNR_error, _, _, _  = any_number.findall(line) 
+        FFTFIT_results_handle.write(b+' '+b_error+' '+SNR+' '+SNR_error+'\n')
     if 'a                407.500' in line:
         TEMPO_TOAs_handle.write(line)
 TEMPO_TOAs_handle.close()
-
+PRESTO_TOAs_handle.close()
+FFTFIT_results_handle.close()
 
 #%% Create a total profile
 
@@ -226,6 +242,7 @@ PRESTO_totalprofile_command = 'sum_profiles.py -n '+number_of_profile_bins+' -g 
 log_handle.write('PRESTO total profile command: ' + PRESTO_totalprofile_command+'\n')
 
 terminal_totalprofile_run = subprocess.Popen(PRESTO_totalprofile_command, stdin=subprocess.PIPE, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+time.sleep(3) #give it some time before pressing enter
 output_totalprofile_run = terminal_totalprofile_run.communicate(input=b'\n \n \n \n')[0] #this program needs to have enter pressed twice
     
 log_handle.write(output_totalprofile_run.decode('utf-8')+'\n')
@@ -234,7 +251,7 @@ total_profile = np.genfromtxt('sum_profiles.bestprof')
 
 fig1 = plt.figure()
 ax1 = plt.gca()
-plt.plot(total_profile[:,0],total_profile[:,1], linewidth=0.5, color='black')
+plt.step(total_profile[:,0],total_profile[:,1], linewidth=0.5, color='black')
 ax1.set_xlabel('Pulse phase bins')
 ax1.set_ylabel('Relative flux')
 plt.savefig('Total_Profile.pdf') 
@@ -245,8 +262,28 @@ print('Finished.')
 
 #%% Clean up
 os.remove('folds_filenames_list.txt')
-log_handle.close()
 
+#%% Get some numbers out to compare with previous analyses' performance
+
+FFTFIT_results = np.genfromtxt('FFTFIT_results.txt')
+average_SNR = np.mean(FFTFIT_results[:,2])
+log_handle.write('The average SNR is '+str(average_SNR))
+
+for i in range(1,100):
+    number_of_lines_from_end = str(i)
+    line_bytes = subprocess.check_output(['tail', '-'+number_of_lines_from_end, 'PRESTO_Fold_All_Observations.log'])
+    line = line_bytes.decode(encoding='utf-8')
+    if 'Summed profile approx SNR' in line:
+        total_profile_SNR = any_number.findall(line)
+        break
+log_handle.write('The summed profile\'s approximate SNR is '+total_profile_SNR[0])
+
+TOA_list = np.genfromtxt('TEMPO_TOAs.txt')
+average_TOA_error = np.mean(TOA_list[:,3])
+log_handle.write('The average TOA error bar is '+str(average_TOA_error)+' microseconds.')
+
+
+log_handle.close()
 
 
 
