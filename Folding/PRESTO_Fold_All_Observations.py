@@ -263,10 +263,11 @@ print('Finished.')
 #%% Clean up
 os.remove('folds_filenames_list.txt')
 
-#%% Get some numbers out to compare with previous analyses' performance
+#%% Get some numbers and plots out to compare with previous analyses' performance
 
 FFTFIT_results = np.genfromtxt('FFTFIT_results.txt')
-average_SNR = np.mean(FFTFIT_results[:,2])
+SNRs = FFTFIT_results[:,2]
+average_SNR = np.mean(SNRs)
 log_handle.write('The average SNR is '+str(average_SNR))
 
 for i in range(1,100):
@@ -281,6 +282,24 @@ log_handle.write('The summed profile\'s approximate SNR is '+total_profile_SNR[0
 TOA_list = np.genfromtxt('TEMPO_TOAs.txt')
 average_TOA_error = np.mean(TOA_list[:,3])
 log_handle.write('The average TOA error bar is '+str(average_TOA_error)+' microseconds.')
+
+fig2 = plt.figure()
+ax2 = plt.gca()
+ax2.scatter(TOA_list[:,2], SNRs, marker='o', color='black')
+ax2.set_xlabel('TOAs')
+ax2.set_ylabel('SNR')
+plt.savefig('TOAs_vs_SNRs.pdf') 
+plt.close()
+
+
+fig3 = plt.figure()
+ax3 = plt.gca()
+ax3.scatter(SNRs, TOA_list[:,3],  marker='.', color='black')
+ax3.set_xlabel('SNR')
+ax3.set_ylabel('TOA error bar')
+plt.savefig('TOA_errors_vs_SNRs.pdf') 
+plt.close()
+
 
 
 log_handle.close()
