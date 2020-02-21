@@ -42,9 +42,10 @@ plt.rcParams["figure.figsize"] = [10,10]
 
 #%% Here change variables to test the analysis
 
-number_of_profile_bins = '1024' #this is the number of phase bins in the folded profiles and in the total profile, it has to be a power of two!
+number_of_profile_bins = '512' #this is the number of phase bins in the folded profiles and in the total profile, it has to be a power of two!
 #otherwise, for folding, PRESTO defaults to the number of sampling bins which correspond to one folded period, in our case about 64, and for the total profile, it defaults to 128.
 absphase = '-absphase' #empty the string if don't want to fold in absolute phase
+window = '-window' #empty the string if don't want to apply Hamming window before FFT https://download.ni.com/evaluation/pxi/Understanding%20FFTs%20and%20Windowing.pdf
 
 #%% Start a log
 log_handle = open('PRESTO_Fold_All_Observations.log', 'w')
@@ -58,11 +59,11 @@ one_minute_in_datapoints= one_second_in_datapoints * 60
 
 #%% Find out time span of the available observations
 
-path_to_cleaned_files = '/home/emma/Desktop/Cleaned_Data'
-cleaned_files = sorted(glob.glob(path_to_cleaned_files+'/*_cleaned.dat'))
-minimum_GPS_time = Time(float(cleaned_files[0][32:-12]), format='gps') #this is the first date at which I start having observations, extracted from the file name of the ordered cleaned files.
+path_to_cleaned_files_paths = '/home/emma/Desktop/Cleaned_Data'
+cleaned_files_paths = sorted(glob.glob(path_to_cleaned_files_paths+'/*_cleaned.dat'))
+minimum_GPS_time = Time(float(cleaned_files_paths[0][32:-12]), format='gps') #this is the first date at which I start having observations, extracted from the file name of the ordered cleaned files.
 log_handle.write('The observations start on ' + minimum_GPS_time.iso+'\n')
-maximum_GPS_time = Time(float(cleaned_files[len(cleaned_files)-1][32:-12]), format='gps') #this is the last observation date
+maximum_GPS_time = Time(float(cleaned_files_paths[len(cleaned_files_paths)-1][32:-12]), format='gps') #this is the last observation date
 log_handle.write('The observations end on ' + maximum_GPS_time.iso+'\n')
 observations_span = maximum_GPS_time - minimum_GPS_time
 log_handle.write('The observations span '+str(observations_span.jd)+' days. \n')
@@ -80,20 +81,20 @@ path_to_folded_profiles =  '/home/emma/Desktop/pulsardataprep_acreroad/Folding/P
 #%%Loop through observations
 
 
-bar = Bar('Processing', max=len(cleaned_files), suffix = '%(percent).1f%% - %(eta)ds') #create a progress bar
+bar = Bar('Processing', max=len(cleaned_files_paths), suffix = '%(percent).1f%% - %(eta)ds') #create a progress bar
 bar.check_tty = False
 
-for file_cleaned in cleaned_files:
+for cleaned_file_path in cleaned_files_paths:
     
     
     #%% Find out the start time and length of the observation
     
     
-    start_time_GPS = float(file_cleaned[32:-12])
+    start_time_GPS = float(cleaned_file_path[32:-12])
     start_time_GPS_astropy = Time(start_time_GPS, format='gps') 
     log_handle.write('Observation starting on GPS time '+str(start_time_GPS)+' i.e. '+str(start_time_GPS_astropy.iso)+'\n')
-    handle_file_cleaned = open(file_cleaned)
-    data_cleaned = np.fromfile(handle_file_cleaned,'f4')
+    handle_cleaned_file = open(cleaned_file_path)
+    data_cleaned = np.fromfile(handle_cleaned_file,'f4')
     #Cleaned dataset
     total_seconds_cleaned = len(data_cleaned)*sampling_period #total seconds in dataset
     total_hours_cleaned =  total_seconds_cleaned / 3600 #total hours in dataset
@@ -135,7 +136,7 @@ for file_cleaned in cleaned_files:
     copyfile('Template_PRESTO_inf_file.txt','current_PRESTO_inf_file.inf') #this creates an empty template file, and removes the previous instance of it
     
     #Write the datafile name, without suffix
-    update_text(filename='current_PRESTO_inf_file.inf', lineno=1, column=44, text=file_cleaned[:-4])
+    update_text(filename='current_PRESTO_inf_file.inf', lineno=1, column=44, text=cleaned_file_path[:-4])
     
     #Write the observation start MJD
     update_text(filename='current_PRESTO_inf_file.inf', lineno=8, column=44, text=str(start_time_GPS_astropy.mjd))
@@ -144,7 +145,7 @@ for file_cleaned in cleaned_files:
     update_text(filename='current_PRESTO_inf_file.inf', lineno=10, column=44, text=str(len(data_cleaned)))
     
     #PRESTO will look for this information file in the same location as the data file, with the same name
-    copyfile('current_PRESTO_inf_file.inf', file_cleaned[:-3]+'inf')
+    copyfile('current_PRESTO_inf_file.inf', cleaned_file_path[:-3]+'inf')
     #PRESTO looks for an inf file along with the folded profiles later, when doing TOA finding
     copyfile('current_PRESTO_inf_file.inf', path_to_folded_profiles+str(start_time_GPS)+'.inf')
     #I currently get a warning saying that the .inf file cannot be found. I wonder why! It's OK, because the information taken from the inf file in that case defaults to the right values without one: DM 0 and number of channels 1.
@@ -155,7 +156,7 @@ for file_cleaned in cleaned_files:
     
     
     
-    PRESTO_fold_command = 'prepfold -nosearch '+absphase+' -polycos polyco.dat -psr 0332+5434 -double -noxwin -n '+number_of_profile_bins+' -o '+path_to_folded_profiles+str(start_time_GPS)+' '+file_cleaned
+    PRESTO_fold_command = 'prepfold -nosearch '+absphase+' '+window+' -polycos polyco.dat -psr 0332+5434 -double -noxwin -n '+number_of_profile_bins+' -o '+path_to_folded_profiles+str(start_time_GPS)+' '+cleaned_file_path
     
     #to try: window
     
@@ -213,7 +214,7 @@ PRESTO_TOAs_handle = open('PRESTO_TOAs.txt' , 'r')
 TEMPO_TOAs_handle = open('TEMPO_TOAs.txt', 'w')
 FFTFIT_results_handle = open('FFTFIT_results.txt', 'w')
 
-#to find floats, intergers, and numbers with exponents in output files, we need to use regular expressions
+#to find floats, integers, and numbers with exponents in output files, we need to use regular expressions
 #this one was taken from https://stackoverflow.com/questions/4703390/how-to-extract-a-floating-number-from-a-string , second answer
 regexp_numeric_pattern = r'[-+]? (?: (?: \d* \. \d+ ) | (?: \d+ \.? ) )(?: [Ee] [+-]? \d+ ) ?'
 #this expression needs compiled by regexp
@@ -232,12 +233,12 @@ FFTFIT_results_handle.close()
 
 #%% Create a total profile
 
-fold_files = glob.glob(path_to_folded_profiles+'/*.pfd')
-folds_filenames_list_handle = open('folds_filenames_list.txt', 'w')
-for fold_file in fold_files:
-        folds_filenames_list_handle.write("%s\n" % fold_file)
+prepfold_files_paths = sorted(glob.glob(path_to_folded_profiles+'/*.pfd'))
+prepfolds_filenames_list_handle = open('prepfolds_filenames_list.txt', 'w')
+for prepfold_file_path in prepfold_files_paths:
+        prepfolds_filenames_list_handle.write("%s\n" % prepfold_file_path)
 
-PRESTO_totalprofile_command = 'sum_profiles.py -n '+number_of_profile_bins+' -g '+path_to_template_profile+' folds_filenames_list.txt'
+PRESTO_totalprofile_command = 'sum_profiles.py -n '+number_of_profile_bins+' -g '+path_to_template_profile+' prepfolds_filenames_list.txt'
 
 log_handle.write('PRESTO total profile command: ' + PRESTO_totalprofile_command+'\n')
 
@@ -261,7 +262,7 @@ print('Finished.')
 
 
 #%% Clean up
-os.remove('folds_filenames_list.txt')
+os.remove('prepfolds_filenames_list.txt')
 
 #%% Get some numbers and plots out to compare with previous analyses' performance
 
@@ -286,7 +287,7 @@ log_handle.write('The average TOA error bar is '+str(average_TOA_error)+' micros
 fig2 = plt.figure()
 ax2 = plt.gca()
 ax2.scatter(TOA_list[:,2], SNRs, marker='o', color='black')
-ax2.set_xlabel('TOAs')
+ax2.set_xlabel('TOA (MJD)')
 ax2.set_ylabel('SNR')
 plt.savefig('TOAs_vs_SNRs.pdf') 
 plt.close()
@@ -296,9 +297,12 @@ fig3 = plt.figure()
 ax3 = plt.gca()
 ax3.scatter(SNRs, TOA_list[:,3],  marker='.', color='black')
 ax3.set_xlabel('SNR')
-ax3.set_ylabel('TOA error bar')
+ax3.set_ylabel('TOA error bar ($\mu$s)')
 plt.savefig('TOA_errors_vs_SNRs.pdf') 
 plt.close()
+
+#%%
+
 
 
 
