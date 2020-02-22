@@ -44,8 +44,6 @@ plt.rcParams["figure.figsize"] = [10,10]
 
 number_of_profile_bins = '512' #this is the number of phase bins in the folded profiles and in the total profile, it has to be a power of two!
 #otherwise, for folding, PRESTO defaults to the number of sampling bins which correspond to one folded period, in our case about 64, and for the total profile, it defaults to 128.
-absphase = '-absphase' #empty the string if don't want to fold in absolute phase
-window = '' #'-window' #empty the string if don't want to apply Hamming window before FFT https://download.ni.com/evaluation/pxi/Understanding%20FFTs%20and%20Windowing.pdf
 
 #%% Start a log
 log_handle = open('PRESTO_Fold_All_Observations.log', 'w')
@@ -81,7 +79,7 @@ path_to_folded_profiles =  '/home/emma/Desktop/pulsardataprep_acreroad/Folding/P
 #%%Loop through observations
 
 
-bar = Bar('Processing', max=len(cleaned_files_paths), suffix = '%(percent).1f%% - %(eta)ds') #create a progress bar
+bar = Bar('Processing...', max=len(cleaned_files_paths), fill='\U0001F4E1', suffix = '%(percent).1f%% - %(eta)ds') #create a progress bar
 bar.check_tty = False
 
 for cleaned_file_path in cleaned_files_paths:
@@ -156,7 +154,7 @@ for cleaned_file_path in cleaned_files_paths:
     
     
     
-    PRESTO_fold_command = 'prepfold -nosearch '+absphase+' '+window+' -polycos polyco.dat -psr 0332+5434 -double -noxwin -n '+number_of_profile_bins+' -o '+path_to_folded_profiles+str(start_time_GPS)+' '+cleaned_file_path
+    PRESTO_fold_command = 'prepfold -nosearch -polycos polyco.dat -psr 0332+5434 -double -noxwin -n '+number_of_profile_bins+' -o '+path_to_folded_profiles+str(start_time_GPS)+' '+cleaned_file_path
     
     #to try: window
     
@@ -244,7 +242,7 @@ log_handle.write('PRESTO total profile command: ' + PRESTO_totalprofile_command+
 
 terminal_totalprofile_run = subprocess.Popen(PRESTO_totalprofile_command, stdin=subprocess.PIPE, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 time.sleep(8) #give it some time before pressing enter
-output_totalprofile_run = terminal_totalprofile_run.communicate(input=b'\n \n \n \n')[0] #this program needs to have enter pressed twice
+output_totalprofile_run = terminal_totalprofile_run.communicate(input=b'\n \n \n \n \n \n \n \n \n \n \n \n \n')[0] #this program needs to have enter pressed twice
     
 log_handle.write(output_totalprofile_run.decode('utf-8')+'\n')
 total_profile = np.genfromtxt('sum_profiles.bestprof')
@@ -269,7 +267,7 @@ os.remove('prepfolds_filenames_list.txt')
 FFTFIT_results = np.genfromtxt('FFTFIT_results.txt')
 SNRs = FFTFIT_results[:,2]
 average_SNR = np.mean(SNRs)
-log_handle.write('The average SNR is '+str(average_SNR)+'/n')
+log_handle.write('The average SNR is '+str(average_SNR)+'\n')
 
 for i in range(1,100):
     number_of_lines_from_end = str(i)
@@ -278,11 +276,11 @@ for i in range(1,100):
     if 'Summed profile approx SNR' in line:
         total_profile_SNR = any_number.findall(line)
         break
-log_handle.write('The summed profile\'s approximate SNR is '+total_profile_SNR[0]+'/n')
+log_handle.write('The summed profile\'s approximate SNR is '+total_profile_SNR[0]+'\n')
 
 TOA_list = np.genfromtxt('TEMPO_TOAs.txt')
 average_TOA_error = np.mean(TOA_list[:,3])
-log_handle.write('The average TOA error bar is '+str(average_TOA_error)+' microseconds./n')
+log_handle.write('The average TOA error bar is '+str(average_TOA_error)+' microseconds.\n')
 
 fig2 = plt.figure()
 ax2 = plt.gca()
