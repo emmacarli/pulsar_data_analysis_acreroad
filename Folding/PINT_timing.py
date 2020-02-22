@@ -10,9 +10,9 @@ model = models.model_builder.get_model('B0329+54.par')
 
 #%%Load in TOAs
 TOAs = toa.get_TOAs('TEMPO_TOAs.txt', planets=True)
-#selection =  TOAs.get_errors() < 500 * units.us
+selection =  TOAs.get_errors() < 650 * units.us
 
-#TOAs.select(selection)
+TOAs.select(selection)
 TOAs.print_summary()
 
 #%%Pre-fit residuals
