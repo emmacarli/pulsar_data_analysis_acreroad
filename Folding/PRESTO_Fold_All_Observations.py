@@ -45,7 +45,7 @@ plt.rcParams["figure.figsize"] = [10,10]
 number_of_profile_bins = '512' #this is the number of phase bins in the folded profiles and in the total profile, it has to be a power of two!
 #otherwise, for folding, PRESTO defaults to the number of sampling bins which correspond to one folded period, in our case about 64, and for the total profile, it defaults to 128.
 absphase = '-absphase' #empty the string if don't want to fold in absolute phase
-window = '-window' #empty the string if don't want to apply Hamming window before FFT https://download.ni.com/evaluation/pxi/Understanding%20FFTs%20and%20Windowing.pdf
+window = '' #'-window' #empty the string if don't want to apply Hamming window before FFT https://download.ni.com/evaluation/pxi/Understanding%20FFTs%20and%20Windowing.pdf
 
 #%% Start a log
 log_handle = open('PRESTO_Fold_All_Observations.log', 'w')
@@ -243,7 +243,7 @@ PRESTO_totalprofile_command = 'sum_profiles.py -n '+number_of_profile_bins+' -g 
 log_handle.write('PRESTO total profile command: ' + PRESTO_totalprofile_command+'\n')
 
 terminal_totalprofile_run = subprocess.Popen(PRESTO_totalprofile_command, stdin=subprocess.PIPE, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-time.sleep(3) #give it some time before pressing enter
+time.sleep(8) #give it some time before pressing enter
 output_totalprofile_run = terminal_totalprofile_run.communicate(input=b'\n \n \n \n')[0] #this program needs to have enter pressed twice
     
 log_handle.write(output_totalprofile_run.decode('utf-8')+'\n')
@@ -269,7 +269,7 @@ os.remove('prepfolds_filenames_list.txt')
 FFTFIT_results = np.genfromtxt('FFTFIT_results.txt')
 SNRs = FFTFIT_results[:,2]
 average_SNR = np.mean(SNRs)
-log_handle.write('The average SNR is '+str(average_SNR))
+log_handle.write('The average SNR is '+str(average_SNR)+'/n')
 
 for i in range(1,100):
     number_of_lines_from_end = str(i)
@@ -278,11 +278,11 @@ for i in range(1,100):
     if 'Summed profile approx SNR' in line:
         total_profile_SNR = any_number.findall(line)
         break
-log_handle.write('The summed profile\'s approximate SNR is '+total_profile_SNR[0])
+log_handle.write('The summed profile\'s approximate SNR is '+total_profile_SNR[0]+'/n')
 
 TOA_list = np.genfromtxt('TEMPO_TOAs.txt')
 average_TOA_error = np.mean(TOA_list[:,3])
-log_handle.write('The average TOA error bar is '+str(average_TOA_error)+' microseconds.')
+log_handle.write('The average TOA error bar is '+str(average_TOA_error)+' microseconds./n')
 
 fig2 = plt.figure()
 ax2 = plt.gca()
