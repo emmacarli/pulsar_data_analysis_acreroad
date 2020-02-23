@@ -3,16 +3,22 @@ from pint import models, toa, residuals, fitter
 from astropy import units
 import matplotlib.pyplot as plt
 from astropy.visualization import quantity_support
+import numpy as np
 
 #%%Generate model
 model = models.model_builder.get_model('B0329+54.par')
 #this parameter file's data was obtained from ATNF
 
 #%%Load in TOAs
+SNR_cutoff=5
 TOAs = toa.get_TOAs('TEMPO_TOAs.txt', planets=True)
-selection =  TOAs.get_errors() < 650 * units.us
+FFTFIT_results = np.genfromtxt('FFTFIT_results.txt')
+SNRs = FFTFIT_results[:,2] #load the folded profiles' SNRs
+SNRs = np.ma.masked_where(SNRs<SNR_cutoff, SNRs)
 
-TOAs.select(selection)
+#selection =  TOAs.get_errors() < 650 * units.us
+
+TOAs.select(~SNRs.mask)
 TOAs.print_summary()
 
 #%%Pre-fit residuals

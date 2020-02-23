@@ -191,11 +191,6 @@ for cleaned_file_path in cleaned_files_paths:
     log_handle.write('\n \n \n \n \n')
     bar.next()
     
-
-    
-    
-    
-    
     
 #%% Clean up
 bar.finish()
