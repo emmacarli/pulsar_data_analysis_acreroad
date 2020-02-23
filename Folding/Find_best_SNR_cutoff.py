@@ -93,7 +93,7 @@ for SNR_cutoff in SNR_cutoffs:
     plt.step(total_profile[:,0],total_profile[:,1], linewidth=0.5, color='black')
     ax1.set_xlabel('Pulse phase bins')
     ax1.set_ylabel('Relative flux')
-    ax1.set_title('Total summed profile with SNR cutoff'+str(SNR_cutoff))
+    ax1.set_title('Total summed profile with SNR cutoff '+str(SNR_cutoff))
     plt.savefig('Total_Profile_SNR_cutoff_'+str(SNR_cutoff)+'.pdf') 
     plt.close()
 
@@ -124,7 +124,7 @@ log_handle.close()
 
 fig2 = plt.figure()
 ax2 = plt.gca()
-plt.plot(SNR_cutoffs, total_profiles_SNRs, linestyle='none', marker='o', markerfacecolor='black', markeredgecolor='black')   
+plt.plot(SNR_cutoffs, total_profiles_SNRs, linestyle='none', marker='o', color='black')   
 ax2.set_xlabel('SNR cutoff')
 ax2.set_ylabel('Total summed profile SNR')
 plt.savefig('Total_profile_SNR_evolution_with_cutoffs.pdf') 

@@ -36,7 +36,7 @@ ax1.errorbar(
     TOAs.get_mjds().value,
     prefit_residuals.time_resids.to(units.us),
     yerr=TOAs.get_errors().to(units.us),
-    fmt=".", color='b')
+    fmt=".", color='black')
 ax1.set_title("%s Pre-fit Timing Residuals" % model.PSR.value)
 ax1.set_xlabel("MJD")
 ax1.set_ylabel("Residual ($\mu$s)")
@@ -48,7 +48,7 @@ plt.close()
 
 #Perform the fit
 WLS_fit = fitter.WLSFitter(TOAs, model)
-WLS_fit.set_fitparams('F0','F1','F2', 'PX', 'RAJ', 'DECJ', 'PMRA', 'PMDEC', 'DM' )
+WLS_fit.set_fitparams('F0','F1','F2')
 WLS_fit.fit_toas()
 
 
@@ -59,7 +59,7 @@ WLS_fit.fit_toas()
 fig2 = plt.figure()
 ax2 = plt.gca()
 #Plot the post-fit residuals
-ax2.errorbar(TOAs.get_mjds().value, WLS_fit.resids.time_resids.to(units.us), yerr=TOAs.get_errors().to(units.us), fmt='.', color='b')
+ax2.errorbar(TOAs.get_mjds().value, WLS_fit.resids.time_resids.to(units.us), yerr=TOAs.get_errors().to(units.us), fmt='.', color='black')
 ax2.set_title("%s Post-Fit Timing Residuals" % model.PSR.value)
 ax2.set_xlabel("MJD")
 ax2.set_ylabel("Residual ($\mu$s)")
