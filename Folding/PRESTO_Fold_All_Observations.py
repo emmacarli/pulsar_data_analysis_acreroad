@@ -55,10 +55,13 @@ sampling_period = 2e-3 #2 ms
 one_second_in_datapoints = int(1/sampling_period) #500 datapoints = 1 second of recording
 one_minute_in_datapoints= one_second_in_datapoints * 60
 
+
 #%% Find out time span of the available observations
 
-path_to_cleaned_files_paths = '/home/emma/Desktop/Cleaned_Data'
-cleaned_files_paths = sorted(glob.glob(path_to_cleaned_files_paths+'/*_cleaned.dat'))
+path_to_cleaned_files = '/home/emma/Desktop/Cleaned_Data/'
+cleaned_files_paths = sorted(glob.glob(path_to_cleaned_files +'*_cleaned.dat'))
+path_to_raw_files =  '/home/emma/Desktop/Raw_Datafiles/'
+raw_files_paths = sorted(glob.glob(path_to_raw_files+'*-dd.dat'))
 minimum_GPS_time = Time(float(cleaned_files_paths[0][32:-12]), format='gps') #this is the first date at which I start having observations, extracted from the file name of the ordered cleaned files.
 log_handle.write('The observations start on ' + minimum_GPS_time.iso+'\n')
 maximum_GPS_time = Time(float(cleaned_files_paths[len(cleaned_files_paths)-1][32:-12]), format='gps') #this is the last observation date
@@ -79,20 +82,21 @@ path_to_folded_profiles =  '/home/emma/Desktop/pulsardataprep_acreroad/Folding/P
 #%%Loop through observations
 
 
-bar = Bar('Processing...', max=len(cleaned_files_paths), fill='\U0001F4E1', suffix = '%(percent).1f%% - %(eta)ds') #create a progress bar
+bar = Bar('Processing...', max=len(raw_files_paths), fill='\U0001F4E1', suffix = '%(percent).1f%% - %(eta)ds') #create a progress bar
 bar.check_tty = False
 
-for cleaned_file_path in cleaned_files_paths:
+for raw_file_path in raw_files_paths:
     
     
     #%% Find out the start time and length of the observation
     
     
-    start_time_GPS = float(cleaned_file_path[32:-12])
+    #start_time_GPS = float(cleaned_file_path[len(path_to_cleaned_files):-len('_cleaned.dat')])
+    start_time_GPS = float(raw_file_path[len(path_to_raw_files):-len('-PSRB0329-2ms-sampling-dd.dat')])
     start_time_GPS_astropy = Time(start_time_GPS, format='gps') 
     log_handle.write('Observation starting on GPS time '+str(start_time_GPS)+' i.e. '+str(start_time_GPS_astropy.iso)+'\n')
-    handle_cleaned_file = open(cleaned_file_path)
-    data_cleaned = np.fromfile(handle_cleaned_file,'f4')
+    handle_raw_file = open(raw_file_path)
+    data_cleaned = np.fromfile(handle_raw_file,'f4')
     #Cleaned dataset
     total_seconds_cleaned = len(data_cleaned)*sampling_period #total seconds in dataset
     total_hours_cleaned =  total_seconds_cleaned / 3600 #total hours in dataset
@@ -134,7 +138,7 @@ for cleaned_file_path in cleaned_files_paths:
     copyfile('Template_PRESTO_inf_file.txt','current_PRESTO_inf_file.inf') #this creates an empty template file, and removes the previous instance of it
     
     #Write the datafile name, without suffix
-    update_text(filename='current_PRESTO_inf_file.inf', lineno=1, column=44, text=cleaned_file_path[:-4])
+    update_text(filename='current_PRESTO_inf_file.inf', lineno=1, column=44, text=raw_file_path[:-4])
     
     #Write the observation start MJD
     update_text(filename='current_PRESTO_inf_file.inf', lineno=8, column=44, text=str(start_time_GPS_astropy.mjd))
@@ -143,7 +147,7 @@ for cleaned_file_path in cleaned_files_paths:
     update_text(filename='current_PRESTO_inf_file.inf', lineno=10, column=44, text=str(len(data_cleaned)))
     
     #PRESTO will look for this information file in the same location as the data file, with the same name
-    copyfile('current_PRESTO_inf_file.inf', cleaned_file_path[:-3]+'inf')
+    copyfile('current_PRESTO_inf_file.inf', raw_file_path[:-3]+'inf')
     #PRESTO looks for an inf file along with the folded profiles later, when doing TOA finding
     copyfile('current_PRESTO_inf_file.inf', path_to_folded_profiles+str(start_time_GPS)+'.inf')
     #I currently get a warning saying that the .inf file cannot be found. I wonder why! It's OK, because the information taken from the inf file in that case defaults to the right values without one: DM 0 and number of channels 1.
@@ -154,7 +158,7 @@ for cleaned_file_path in cleaned_files_paths:
     
     
     
-    PRESTO_fold_command = 'prepfold -nosearch -polycos polyco.dat -psr 0332+5434 -double -noxwin -n '+number_of_profile_bins+' -o '+path_to_folded_profiles+str(start_time_GPS)+' '+cleaned_file_path
+    PRESTO_fold_command = 'prepfold -nosearch -polycos polyco.dat -psr 0332+5434 -double -noxwin -runavg -n '+number_of_profile_bins+' -o '+path_to_folded_profiles+str(start_time_GPS)+' '+raw_file_path
     
     #to try: window
     
