@@ -5,6 +5,20 @@ import matplotlib.pyplot as plt
 from astropy.visualization import quantity_support
 import numpy as np
 
+
+#%% Set matplotlib general parameters
+
+#Make everything larger for readability on graphs
+plt.rcParams['xtick.labelsize'] = 12
+plt.rcParams['ytick.labelsize'] = 12
+plt.rcParams['font.size'] = 14
+#Set same fonts as my LaTeX document
+plt.rcParams['font.family'] = 'STIXGeneral' 
+plt.rcParams['mathtext.fontset'] = 'stix'
+#other plotting params
+plt.rcParams['axes.grid'] = True
+plt.rcParams["figure.figsize"] = [10,10]
+
 #%%Generate model
 model = models.model_builder.get_model('B0329+54.par')
 #this parameter file's data was obtained from ATNF
@@ -48,11 +62,9 @@ plt.close()
 
 #Perform the fit
 WLS_fit = fitter.WLSFitter(TOAs, model)
-WLS_fit.set_fitparams('F0','F1','F2')
+WLS_fit.set_fitparams('F0','F1', 'RAJ', 'DECJ') #try 'TZRMJD'?
+#add position _> really good result!using rotation of the earth.
 WLS_fit.fit_toas()
-
-
-
 
 
 
@@ -65,4 +77,11 @@ ax2.set_xlabel("MJD")
 ax2.set_ylabel("Residual ($\mu$s)")
 plt.savefig('Post_fit_residuals.pdf') 
 plt.close()
+
+#%% Write the fit model to use as ephemeris for total profile
+model_handle = open('B0329+54_after_timing.txt', 'w')
+model_handle.write(WLS_fit.model.as_parfile())
+model_handle.close()
+
+
 
