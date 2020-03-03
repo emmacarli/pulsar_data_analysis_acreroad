@@ -10,6 +10,9 @@ PMRA            16.97                         3.000e-02
 PMDEC           -10.37                        5.000e-02
 POSEPOCH        46473.00
 UNITS           TDB
+PLANET_SHAPIRO  Y
+DILATEFREQ	Y
+CORRECT_TROPOSPHERE	Y
 TZRSITE         AR
 TZRFRQ          407.5
 TZRMJD		57883.6023687080617
