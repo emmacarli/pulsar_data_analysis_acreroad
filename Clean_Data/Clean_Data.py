@@ -17,6 +17,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from astropy.stats import sigma_clip
 import glob
+from progress.bar import Bar
+
 
 
 #%% Set matplotlib general parameters
@@ -38,12 +40,19 @@ sampling_period = 2e-3 #2 ms
 one_second_in_datapoints = int(1/sampling_period) #500 datapoints = 1 second of recording
 one_minute_in_datapoints= one_second_in_datapoints * 60
 
+#%%
+
+
 #%% Go through each raw file
 raw_files = glob.glob('/home/emma/Desktop/Raw_Datafiles/*-PSRB0329-2ms-sampling-dd.dat') #list of raw files on my computer
 
+bar = Bar('Processing...', max=len(raw_files), fill='\U0001F4E1', suffix = '%(percent).1f%% - %(eta)ds') #create a progress bar
+bar.check_tty = False
+
 for file_raw in raw_files: #go through each raw file
     start_time_GPS = float(file_raw[33:-29])
-    
+    bar.next()
+      
     #if this file has already been cleaned, skip it and go to the next in raw_files
     if glob.glob('Cleaned_Data/'+str(start_time_GPS)+'_cleaned.dat') != []:
         print(str(start_time_GPS)+' already cleaned.')
@@ -75,13 +84,9 @@ for file_raw in raw_files: #go through each raw file
 
     data3 = data2 - median_filter_1s
 
-# =============================================================================
-#     #this was very long so made my own:
-#     median_filter_1s = scipy.signal.medfilt(data2,kernel_size=one_second_in_datapoints-1) #kernel needs to be odd so removed 1 entry
-# =============================================================================
 
     #%% Sigma clip over a 1 minute interval, since the drive jumps are < 1 min
-    data_cleaned = np.zeros(len(data3))
+    data4 = np.zeros(len(data3))
     minute_long_chunks_starting_points = np.linspace(0, len(data3) - one_minute_in_datapoints , number_of_one_minute_intervals , dtype='int')
     for minute_long_chunk_start in minute_long_chunks_starting_points :
     
@@ -89,15 +94,32 @@ for file_raw in raw_files: #go through each raw file
         
         sigma_masked_array = sigma_clip(data3[minute_long_chunk_start : minute_long_chunk_end], sigma=5, cenfunc='median', masked=True) #this is a NumPy MaskedArray object
         sigma_masked_array.set_fill_value(0.0)
-        data_cleaned[minute_long_chunk_start : minute_long_chunk_end] = sigma_masked_array.filled()
-
+        
+        data4[minute_long_chunk_start : minute_long_chunk_end] = sigma_masked_array.filled()
+        
+    #%% STD divide to whiten data over a 1 minute interval
+        
+        data_cleaned = np.zeros(len(data4))
+        
+        for minute_long_chunk_start in minute_long_chunks_starting_points :
+    
+            minute_long_chunk_end =  minute_long_chunk_start + one_minute_in_datapoints
+            
+            if np.std(data4[minute_long_chunk_start : minute_long_chunk_end]) != 0 :
+                data_cleaned[minute_long_chunk_start : minute_long_chunk_end] = data4[minute_long_chunk_start : minute_long_chunk_end]/np.std(data4[minute_long_chunk_start : minute_long_chunk_end])
+        
+    
+        
     #%% Write the cleaned file
     
     #in the same way as a raw file, so can be opened the same way
-    handle_file_cleaned = open('Cleaned_Data/'+str(start_time_GPS)+'_cleaned.dat', 'wb')
+    handle_file_cleaned = open('/home/emma/Desktop/Cleaned_Data/'+str(start_time_GPS)+'_cleaned.dat', 'wb')
     data_cleaned_binary = np.array(data_cleaned, 'f4')
     data_cleaned_binary.tofile(handle_file_cleaned)
     handle_file_cleaned.close()
     handle_file_raw.close()
+
+
+bar.finish()
 
 

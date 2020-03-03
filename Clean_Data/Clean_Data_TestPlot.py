@@ -46,12 +46,12 @@ ax1 = plt.gca()
     
 #%% Which raw file do you want to clean and plot?
 
-start_time_GPS = 1185851408.100563 #change date here
+start_time_GPS = 1207673922.110527 #change date here
 file_raw = str(start_time_GPS)+'-PSRB0329-2ms-sampling-dd.dat'
 handle_file_raw = open('/home/emma/Desktop/Raw_Datafiles/'+file_raw, mode='rb') 
 data_raw = np.fromfile(handle_file_raw,'f4')
 #ax1.plot(data_raw, label='Raw data')
-ax1.plot(data_raw, label='Raw data', linestyle = 'none',   marker='s', markersize=72/fig1.dpi, mec='None') #comment out depending on what you want on your plot
+#ax1.plot(data_raw, label='Raw data', linestyle = 'none',   marker='s', markersize=72/fig1.dpi, mec='None') #comment out depending on what you want on your plot
 #using a square without border at the pixel size for a marker is a workaround using Matplotlib's pixel marker ',' which size cannot be increased in the legend.
 
 #%% Crop the raw file to a length that is an integer number of minutes
@@ -93,8 +93,21 @@ for minute_long_chunk_start in minute_long_chunks_starting_points :
     sigma_masked_array = sigma_clip(data3[minute_long_chunk_start : minute_long_chunk_end], sigma=5, cenfunc='median', masked=True) #this is a NumPy MaskedArray object
     sigma_masked_array.set_fill_value(0.0)
     data4[minute_long_chunk_start : minute_long_chunk_end] = sigma_masked_array.filled()
-#ax1.plot(data4, label='One minute 5-sigma clip filtered')
-ax1.plot(data4, label='Cleaned data', linestyle = 'none',   marker='s', markersize=72/fig1.dpi, mec='None') #comment out depending on what you want on your plot
+ax1.plot(data4, label='One minute 5-sigma clip filtered')
+#ax1.plot(data4, label='5-sigma clipped', linestyle = 'none',   marker='s', markersize=72/fig1.dpi, mec='None') #comment out depending on what you want on your plot
+
+#%% STD divide to whiten data over a 1 minute interval
+    
+data_cleaned = np.zeros(len(data4))
+    
+for minute_long_chunk_start in minute_long_chunks_starting_points :
+
+    minute_long_chunk_end =  minute_long_chunk_start + one_minute_in_datapoints
+        
+    data_cleaned[minute_long_chunk_start : minute_long_chunk_end] = data4[minute_long_chunk_start : minute_long_chunk_end]/np.std(data4[minute_long_chunk_start : minute_long_chunk_end])
+    
+ax1.plot(data_cleaned, label='STD divided')    
+#ax1.plot(data_cleaned, label='STD divided', linestyle = 'none',   marker='s', markersize=72/fig1.dpi, mec='None')
 
 #%% Add details to the finished plot
 
