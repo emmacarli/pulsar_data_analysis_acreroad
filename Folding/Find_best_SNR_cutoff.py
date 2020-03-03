@@ -21,6 +21,7 @@ import subprocess
 import re
 import time
 import os
+import shlex
 
 
 #%% Set matplotlib general parameters
@@ -77,13 +78,13 @@ for SNR_cutoff in SNR_cutoffs:
     for prepfold_file_path in prepfold_files_paths:
             prepfolds_filenames_list_handle.write("%s\n" % prepfold_file_path)
     
-    PRESTO_totalprofile_command = 'sum_profiles.py -n '+number_of_profile_bins+' -g '+path_to_template_profile+' prepfolds_filenames_list.txt'
-    
+
+    PRESTO_totalprofile_command =  'sum_profiles.py -n '+number_of_profile_bins+' -g '+path_to_template_profile+' prepfolds_filenames_list.txt'
     log_handle.write('PRESTO total profile command: ' + PRESTO_totalprofile_command+'\n')
     
-    terminal_totalprofile_run = subprocess.Popen(PRESTO_totalprofile_command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True)
+    terminal_totalprofile_run = subprocess.Popen(shlex.split(PRESTO_totalprofile_command), stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=False)
     time.sleep(2) #give it some computing time before pressing enter
-    output_totalprofile_run = terminal_totalprofile_run.communicate(input=b'\n \n \n \n \n \n \n')[0] #this program needs to have enter pressed twice  
+    output_totalprofile_run = terminal_totalprofile_run.communicate(input=b'\n \n \n \n \n')[0] #this program needs to have enter pressed twice  
 
     log_handle.write(output_totalprofile_run.decode('utf-8')+'\n')
     total_profile = np.genfromtxt('sum_profiles.bestprof')
@@ -119,6 +120,7 @@ for SNR_cutoff in SNR_cutoffs:
 os.remove('prepfolds_filenames_list.txt')
 os.remove('sum_profiles.bestprof')
 log_handle.close()
+
 
 
 
