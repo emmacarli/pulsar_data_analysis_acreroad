@@ -20,7 +20,7 @@ plt.rcParams["figure.figsize"] = [10,10]
 
 template_profile = np.genfromtxt('/home/emma/Desktop/pulsardataprep_acreroad/PRESTO_Test/TOA_find_test/Jodrell_Template_Profile_I-Q.txt')
 template_profile =  template_profile[:,1]/np.max(template_profile)
-total_profile = np.genfromtxt('/home/emma/Desktop/pulsardataprep_acreroad/Folding/sum_profiles.bestprof')
+total_profile = np.genfromtxt('/home/emma/Desktop/pulsardataprep_acreroad/Folding/sum_profiles_SNR_cutoff_5.bestprof')
 total_profile =  total_profile[:,1]
 total_profile = np.roll(total_profile, np.argmax(total_profile))
 total_profile =  resample(total_profile, len(template_profile))

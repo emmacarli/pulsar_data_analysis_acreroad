@@ -104,7 +104,7 @@ for cleaned_file_path in cleaned_files_paths:
     #%% Generate the TEMPO polycos for this observation
     
     #Create the custom TEMPO command for this file
-    TEMPO_command = 'tempo -ZOBS=AR -ZFREQ=407.5 -ZTOBS='+str(total_hours_rounded_cleaned)+' -ZSTART='+str(start_time_GPS_astropy.mjd)+'  -ZNCOEFF=15 -ZSPAN='+str(int(total_hours_rounded_cleaned))+'H -f B0329+54.par'
+    TEMPO_command = 'tempo -ZOBS=AR -ZFREQ=407.5 -ZTOBS='+str(total_hours_rounded_cleaned)+' -ZSTART='+str(start_time_GPS_astropy.mjd)+'  -ZNCOEFF=15 -ZSPAN='+str(int(total_hours_rounded_cleaned))+'H -f B0329+54_after_timing.par'
     log_handle.write('TEMPO command: ' + TEMPO_command+'\n')
 
     terminal_TEMPO_run = subprocess.run(TEMPO_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
@@ -152,7 +152,7 @@ for cleaned_file_path in cleaned_files_paths:
     
     
     
-    PRESTO_fold_command = 'prepfold -nosearch -polycos polyco.dat -psr 0332+5434 -double -noxwin -n '+number_of_profile_bins+' -o '+path_to_folded_profiles+str(start_time_GPS)+' '+cleaned_file_path
+    PRESTO_fold_command = 'prepfold -nosearch -absphase -polycos polyco.dat -psr 0332+5434 -double -noxwin -n '+number_of_profile_bins+' -o '+path_to_folded_profiles+str(start_time_GPS)+' '+cleaned_file_path
     
     
     log_handle.write('PRESTO fold command: ' + PRESTO_fold_command+'\n')
