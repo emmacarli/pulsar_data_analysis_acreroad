@@ -24,7 +24,7 @@ model = models.model_builder.get_model('B0329+54.par')
 #this parameter file's data was obtained from ATNF
 
 #%%Load in TOAs
-SNR_cutoff=4.5
+SNR_cutoff=4.6
 TOAs = toa.get_TOAs('TEMPO_TOAs.txt', planets=True)
 FFTFIT_results = np.genfromtxt('FFTFIT_results.txt')
 SNRs = FFTFIT_results[:,2] #load the folded profiles' SNRs
@@ -63,7 +63,6 @@ plt.close()
 #Perform the fit
 WLS_fit = fitter.WLSFitter(TOAs, model)
 WLS_fit.set_fitparams('F0','F1', 'RAJ', 'DECJ') #try 'TZRMJD'?
-#add position _> really good result!using rotation of the earth.
 WLS_fit.fit_toas()
 
 

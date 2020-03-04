@@ -71,9 +71,8 @@ for SNR_cutoff in SNR_cutoffs:
     
     #%% Create a total profile
     
-    prepfold_files_paths = sorted(glob.glob(path_to_folded_profiles+'/*.pfd'))
-    prepfold_files_paths = np.ma.masked_where(SNRs<SNR_cutoff, prepfold_files_paths)
-    prepfold_files_paths = prepfold_files_paths[~prepfold_files_paths.mask]
+    prepfold_files_paths = np.array(sorted(glob.glob(path_to_folded_profiles+'/*.pfd')))
+    prepfold_files_paths = prepfold_files_paths[SNRs>SNR_cutoff]
     prepfolds_filenames_list_handle = open('prepfolds_filenames_list.txt', 'w')
     for prepfold_file_path in prepfold_files_paths:
             prepfolds_filenames_list_handle.write("%s\n" % prepfold_file_path)
@@ -97,6 +96,9 @@ for SNR_cutoff in SNR_cutoffs:
     ax1.set_title('Total summed profile with SNR cutoff '+str(SNR_cutoff))
     plt.savefig('Total_Profile_SNR_cutoff_'+str(SNR_cutoff)+'.pdf') 
     plt.close()
+    
+    
+    os.remove('sum_profiles.bestprof')
 
 #%%
     
@@ -118,7 +120,6 @@ for SNR_cutoff in SNR_cutoffs:
 
 #%% Clean up
 os.remove('prepfolds_filenames_list.txt')
-os.remove('sum_profiles.bestprof')
 log_handle.close()
 
 
