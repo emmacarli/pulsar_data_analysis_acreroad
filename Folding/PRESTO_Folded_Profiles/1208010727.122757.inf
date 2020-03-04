@@ -1,4 +1,4 @@
- Data file name without suffix          =  /home/emma/Desktop/Raw_Datafiles/1208010727.122757-PSRB0329-2ms-sampling-dd
+ Data file name without suffix          =  /home/emma/Desktop/Cleaned_Data/1208010727.122757_cleaned
  Telescope used                         =  AR
  Instrument used                        =  4-Bay Yagi Antenna
  Object being observed                  =  B0329+54
@@ -7,7 +7,7 @@
  Data observed by                       =  Graham Woan
  Epoch of observation (MJD)             =  58225.60585790228
  Barycentered?           (1 yes, 0 no)  =  0
- Number of bins in the time series      =  7381555   
+ Number of bins in the time series      =  7380000   
  Width of each time series bin (sec)    =  0.002
  Any breaks in the data? (1 yes, 0 no)  =  0
  Type of observation (EM band)          =  Radio
