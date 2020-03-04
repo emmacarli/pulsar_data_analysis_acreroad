@@ -43,7 +43,7 @@ plt.rcParams["figure.figsize"] = [10,10]
 log_handle = open('Find_best_SNR_cutoff.log', 'w')
 path_to_folded_profiles =  '/home/emma/Desktop/pulsardataprep_acreroad/Folding/PRESTO_Folded_Profiles/'
 path_to_template_profile = '/home/emma/Desktop/pulsardataprep_acreroad/Folding/Jodrell_Template_Profile_I-Q_PRESTO_Gaussian_fit.gaussians' #this was generated using PRESTO's pygaussfit.py on the Jodrell Bank template for this pulsar
-
+maxes_of_total_profiles = []
 
 #%% Here change variables to test the analysis
 
@@ -88,15 +88,19 @@ for SNR_cutoff in SNR_cutoffs:
     log_handle.write(output_totalprofile_run.decode('utf-8')+'\n')
     total_profile = np.genfromtxt('sum_profiles.bestprof')
     
-    fig1 = plt.figure()
-    ax1 = plt.gca()
-    plt.step(total_profile[:,0],total_profile[:,1], linewidth=0.5, color='black')
-    ax1.set_xlabel('Pulse phase bins')
-    ax1.set_ylabel('Relative flux')
-    ax1.set_title('Total summed profile with SNR cutoff '+str(SNR_cutoff))
-    plt.savefig('Total_Profile_SNR_cutoff_'+str(SNR_cutoff)+'.pdf') 
-    plt.close()
+# =============================================================================
+#     fig1 = plt.figure()
+#     ax1 = plt.gca()
+#     plt.step(total_profile[:,0],total_profile[:,1], linewidth=0.5, color='black')
+#     ax1.set_xlabel('Pulse phase bins')
+#     ax1.set_ylabel('Relative flux')
+#     ax1.set_title('Total summed profile with SNR cutoff '+str(SNR_cutoff))
+#     plt.savefig('Total_Profile_SNR_cutoff_'+str(SNR_cutoff)+'.pdf') 
+#     plt.close()
+# =============================================================================
     
+    total_profile = np.genfromtxt('sum_profiles.bestprof')[:,1]
+    maxes_of_total_profiles.append(max(total_profile))
     
     os.remove('sum_profiles.bestprof')
 
@@ -104,15 +108,18 @@ for SNR_cutoff in SNR_cutoffs:
     
 
     
-    for i in range(1,100):
-        number_of_lines_from_end = str(i)
-        line_bytes = subprocess.check_output(['tail', '-'+number_of_lines_from_end, 'Find_best_SNR_cutoff.log'])
-        line = line_bytes.decode(encoding='utf-8')
-        if 'Summed profile approx SNR' in line:
-            total_profile_SNR = any_number.findall(line)
-            break
-
-    total_profiles_SNRs.append(float(total_profile_SNR[0]))
+# =============================================================================
+#     for i in range(1,100):
+#         number_of_lines_from_end = str(i)
+#         line_bytes = subprocess.check_output(['tail', '-'+number_of_lines_from_end, 'Find_best_SNR_cutoff.log'])
+#         line = line_bytes.decode(encoding='utf-8')
+#         if 'Summed profile approx SNR' in line:
+#             total_profile_SNR = any_number.findall(line)
+#             break
+# 
+#     total_profiles_SNRs.append(float(total_profile_SNR[0]))
+#     
+# =============================================================================
     
     prepfolds_filenames_list_handle.close()
     
@@ -125,10 +132,21 @@ log_handle.close()
 
 
 
-fig2 = plt.figure()
-ax2 = plt.gca()
-plt.plot(SNR_cutoffs, total_profiles_SNRs, linestyle='none', marker='o', color='black')   
-ax2.set_xlabel('SNR cutoff')
-ax2.set_ylabel('Total summed profile SNR')
-plt.savefig('Total_profile_SNR_evolution_with_cutoffs.pdf') 
+# =============================================================================
+# fig2 = plt.figure()
+# ax2 = plt.gca()
+# plt.plot(SNR_cutoffs, total_profiles_SNRs, linestyle='none', marker='o', color='black')   
+# ax2.set_xlabel('SNR cutoff')
+# ax2.set_ylabel('Total summed profile SNR')
+# plt.savefig('Total_profile_SNR_evolution_with_cutoffs.pdf') 
+# plt.close()
+# =============================================================================
+
+
+fig3 = plt.figure()
+ax3 = plt.gca()
+ax3.plot(SNR_cutoffs, maxes_of_total_profiles , linestyle='none', marker='o', color='black')   
+ax3.set_xlabel('SNR cutoff')
+ax3.set_ylabel('Max relative intensity of summed profile')
+plt.savefig('Total_profile_height_evolution_with_cutoffs.pdf') 
 plt.close()
