@@ -12,6 +12,6 @@ PEPOCH             46473.0000000000000000
 PLANET_SHAPIRO                          Y
 DM                                    0.0
 DM1                                   0.0
-TZRMJD             57883.6023687080617015
+TZRMJD             57883.6023740345418056 0 261.76
 TZRSITE                                AR
 TZRFRQ                              407.5
