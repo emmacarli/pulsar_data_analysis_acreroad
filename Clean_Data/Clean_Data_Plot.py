@@ -17,6 +17,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import glob
 from astropy.time import Time
+from progress.bar import Bar
 
 
 #%% Set matplotlib general parameters
@@ -41,10 +42,13 @@ one_minute_in_datapoints= one_second_in_datapoints * 60
 #%% Go through each raw file
 raw_files = glob.glob('/home/emma/Desktop/Raw_Datafiles/*-PSRB0329-2ms-sampling-dd.dat') #list of raw files on my computer
 
+bar = Bar('Processing...', max=len(raw_files), fill='\U0001F4E1', suffix = '%(percent).1f%% - %(eta)ds') #create a progress bar
+bar.check_tty = False
+
 for file_raw in raw_files: #go through each raw file
     start_time_GPS = float(file_raw[33:-29])
 
-
+    bar.next()
     #%% If this file has already been plotted, skip it and go to the next in raw_files
     
     if glob.glob('Plots/'+str(start_time_GPS)+'_Compare_Cleaned_Raw*') != []:
@@ -142,3 +146,5 @@ for file_raw in raw_files: #go through each raw file
     
     plt.savefig('Plots/'+str(start_time_GPS)+'_Compare_Cleaned_Raw'+flag+'.pdf') 
     plt.close()
+
+bar.finish()

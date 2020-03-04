@@ -54,7 +54,7 @@ for file_raw in raw_files: #go through each raw file
     bar.next()
       
     #if this file has already been cleaned, skip it and go to the next in raw_files
-    if glob.glob('Cleaned_Data/'+str(start_time_GPS)+'_cleaned.dat') != []:
+    if glob.glob('/home/emma/Desktop/Cleaned_Data/'+str(start_time_GPS)+'_cleaned.dat') != []:
         print(str(start_time_GPS)+' already cleaned.')
         continue
 
