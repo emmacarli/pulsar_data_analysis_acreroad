@@ -38,7 +38,7 @@ four_hours_in_datapoints = int((4 * 3600)/sampling_period)
 
 fft_total = np.zeros(int((four_hours_in_datapoints/2)+1)) #initialise empty FFT
 fft_total_time_axis = np.fft.rfftfreq(four_hours_in_datapoints,sampling_period) 
-cleaned_files = glob.glob('/home/emma/Desktop/pulsardataprep_acreroad/Clean_Data/Cleaned_Data/*.dat') #list of cleaned files on my computer
+cleaned_files = glob.glob('/home/emma/Desktop/Cleaned_Data/*.dat') #list of cleaned files on my computer
 short_files = 0 #initialise counter for number of cleaned datafiles shorter than 4 hours
 
 #%% Compute the mean FFT
@@ -61,14 +61,15 @@ for file_cleaned in cleaned_files: #go through each cleaned file
 #%% Plot the result
 
 print(str(short_files)+' cleaned file(s) shorter than 4 hours and not used in FFT.')
+fft_total_power = np.abs(fft_total)**2
 
 fig1=plt.figure()
 ax1=plt.gca()
-ax1.plot(fft_total_time_axis, np.abs(fft_total)**2, linewidth=0.7, color='black')
+ax1.plot(fft_total_time_axis[1:], fft_total_power[1:], linewidth=0.7, color='black')
 ax1.set_ylabel('Power (arbitrary units)')
 ax1.set_xlabel('Frequency (Hz)')
 ax1.set_title('Averaged FFT of all cleaned files')
-ax1.set_yscale('log')
+#ax1.set_yscale('log')
 
 #%% Save or load the result
 #np.savez('mean_cleaned_fft.npz',fft_total=fft_total, fft_total_time_axis=fft_total_time_axis)

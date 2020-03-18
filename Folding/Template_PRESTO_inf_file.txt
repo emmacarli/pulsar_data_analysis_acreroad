@@ -1,7 +1,7 @@
  Data file name without suffix          =  
  Telescope used                         =  AR
  Instrument used                        =  4-Bay Yagi Antenna
- Object being observed                  =  B0329+54
+ Object being observed                  =  J0332+5434
  J2000 Right Ascension (hh:mm:ss.ssss)  =  03:32:59.4096
  J2000 Declination     (dd:mm:ss.ssss)  =  54:34:43.3290
  Data observed by                       =  Graham Woan
