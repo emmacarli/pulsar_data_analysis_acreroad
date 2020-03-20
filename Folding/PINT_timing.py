@@ -20,6 +20,7 @@ plt.rcParams['axes.grid'] = True
 plt.rcParams["figure.figsize"] = [10,10]
 
 #%%Generate model
+#write TZRMJD automatically, cause pint doesnt seem to do it
 model = models.model_builder.get_model('B0329+54.par')
 #this parameter file's data was obtained from ATNF
 
@@ -27,7 +28,7 @@ model = models.model_builder.get_model('B0329+54.par')
 SNR_cutoff=5
 TOAs = toa.get_TOAs('TEMPO_TOAs.txt', planets=True)
 FFTFIT_results = np.genfromtxt('FFTFIT_results.txt')
-SNRs = FFTFIT_results[:,2] #load the folded profiles' SNRs
+SNRs = FFTFIT_results[:,3] #load the folded profiles' SNRs
 SNRs = np.ma.masked_where(SNRs<SNR_cutoff, SNRs)
 
 #selection =  TOAs.get_errors() < 650 * units.us

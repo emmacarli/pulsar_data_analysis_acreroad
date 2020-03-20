@@ -1,5 +1,6 @@
 To run this notebook, you need PRESTO and TEMPO installed. I have included notes on how to install them.
 
+You also need an installation of all the packages imported at the beginning of the notebook.
 
 
 
