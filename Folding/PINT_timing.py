@@ -24,6 +24,12 @@ plt.rcParams["figure.figsize"] = [10,10]
 model = models.model_builder.get_model('B0329+54.par')
 #this parameter file's data was obtained from ATNF
 
+model_with_TZRMJD_handle = open('J0332+5434_initial_parameters_with_TZRMJD.par')
+model_with_TZRMJD_handle.write('TZRMJD		'+str(TOA_list[0,2])+'   '+str(TOA_list[0,3]))
+# Copy the model 
+for line in open('J0332+5434_initial_parameters') :
+    model_with_TZRMJD_handle.write(line)
+
 #%%Load in TOAs
 SNR_cutoff=5
 TOAs = toa.get_TOAs('TEMPO_TOAs.txt', planets=True)
@@ -32,7 +38,6 @@ SNRs = FFTFIT_results[:,3] #load the folded profiles' SNRs
 SNRs = np.ma.masked_where(SNRs<SNR_cutoff, SNRs)
 
 #selection =  TOAs.get_errors() < 650 * units.us
-
 TOAs.select(~SNRs.mask)
 TOAs.print_summary()
 
