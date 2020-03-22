@@ -3,7 +3,7 @@
 Radio data analysis software for the pulsar telescope at Acre Road Observatory, Glasgow, Scotland.
 For more information refer to pdf report.
 
-To run this notebook, you need PRESTO, PINT and TEMPO installed. I have included notes on how to install them at the end of this README.
+To run this notebook, you need a Linux system with PRESTO, PINT and TEMPO installed. I have included notes on how to install them at the end of this README.
 
 You also need an installation of all the packages imported at the beginning of the notebook.
 
