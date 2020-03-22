@@ -1,30 +1,29 @@
-# pulsardataprep_acreroad
+# pulsar_data_analysis_acreroad
 
 Radio data analysis software for the pulsar telescope at Acre Road Observatory, Glasgow, Scotland.
+For more information refer to pdf report.
 
-To run this notebook, you need PRESTO and TEMPO installed. I have included notes on how to install them at the end of this README.
+To run this notebook, you need PRESTO, PINT and TEMPO installed. I have included notes on how to install them at the end of this README.
 
 You also need an installation of all the packages imported at the beginning of the notebook.
 
 
-
-
-
 You also need the following files:
-- Template_PRESTO_inf_file.txt (created with PRESTO's makeinf)
+- Template_PRESTO_inf_file.txt (created with PRESTO's makeinf, has several fields left empty)
 - J0332+5434_initial_parameters.par, that contains the parameters in table 1 and 2 of the report
-- Jodrell_Template_Profile_I-Q.txt (see other scripts)
-- Jodrell_Template_Profile_I-Q_PRESTO_Gaussian_fit.gaussians (made with PRESTO's pygaussfit.py and the I-Q template from the EPN database - see report and other scripts)
+- Jodrell_Template_Profile_I-Q.txt (see report, and Template_Generator folder)
+- Jodrell_Template_Profile_I-Q_PRESTO_Gaussian_fit.gaussians (made with PRESTO's pygaussfit.py on the template above)
 
 
 Change the paths at the beginning of the notebook.
+
 Add the Acre Road observatory to TEMPO's obsys.dat, and make sure no other observatories have the codes 'a' and 'AR':
  3573741.1      -269156.74      5258407.3      1  ACRE                a  AR 
+
 Add the observatory to PRESTO, in get_TOAs.py, near the start, there is a dictionary of telescopes for TEMPO called scopes={...}. Add to the list: ,'AR':'a'} just after 'Geocenter':'o' .
+
 Add the observatory to PINT, in observatory/observatories.py
 TopoObs('acre', aliases=['acreroad','a','AR'], itrf_xyz =[3573741.1, -269156.74, 5258407.3], )
-
-
 
 
 Notes on how to install TEMPO and PRESTO:
@@ -39,7 +38,7 @@ https://summerpulsar.wordpress.com/2015/01/12/more-presto-installation/
 
 
 
-What I've run on my Ubuntu 18.04 64 bit to install PRESTO, for use in _Python_:
+What I've run on my Ubuntu 18.04 64 bit, with Anaconda python 3, to install PRESTO, TEMPO and PINT:
 
 	sudo apt-get update
 
@@ -100,4 +99,18 @@ then added:
 Some Python commands will not work because PRESTO is not entirely compatible with Anaconda installations: https://github.com/scottransom/presto/issues/73 . The ones needed for this project (pygaussfit.py, prepfold, sum_profiles.py, get_TOAs.py) work.
 
 
+To install PINT I simply ran 
+	cd /home/emma/anaconda3/lib/python3.7/site-packages
+	git clone https://github.com/nanograv/PINT.git
+
+
+Useful links:
+- PINT documentation: https://nanograv-pint.readthedocs.io/en/latest/
+- Template: http://www.epta.eu.org/epndb/#gl98/J0332+5434/gl98_408.epn
+- TEMPO documentation: http://tempo.sourceforge.net/reference_manual.html
+- Really nice literature review (and many other pulsar things!): http://alex88ridolfi.altervista.org/pagine/pulsar_literature.html
+- ATNF catalogue parameters for J0332+5434: https://www.atnf.csiro.au/research/pulsar/psrcat/proc_form.php?version=1.62&JName=JName&RaJ=RaJ&DecJ=DecJ&PMRA=PMRA&PMDec=PMDec&PX=PX&F0=F0&F1=F1&startUserDefined=true&c1_val=&c2_val=&c3_val=&c4_val=&sort_attr=jname&sort_order=asc&condition=&pulsar_names=J0332%2B5434&ephemeris=selected&submit_ephemeris=Get+Ephemeris&coords_unit=raj%2Fdecj&radius=&coords_1=&coords_2=&style=Long+with+last+digit+error&no_value=*&fsize=3&x_axis=&x_scale=linear&y_axis=&y_scale=linear&state=query
+
+
+	
 
