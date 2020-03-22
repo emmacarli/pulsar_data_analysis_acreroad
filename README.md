@@ -13,6 +13,7 @@ You also need an installation of all the packages imported at the beginning of t
 You also need the following files:
 - Template_PRESTO_inf_file.txt (created with PRESTO's makeinf)
 - J0332+5434_initial_parameters.par, that contains the parameters in table 1 and 2 of the report
+- Jodrell_Template_Profile_I-Q.txt (see other scripts)
 - Jodrell_Template_Profile_I-Q_PRESTO_Gaussian_fit.gaussians (made with PRESTO's pygaussfit.py and the I-Q template from the EPN database - see report and other scripts)
 
 
@@ -20,7 +21,8 @@ Change the paths at the beginning of the notebook.
 Add the Acre Road observatory to TEMPO's obsys.dat, and make sure no other observatories have the codes 'a' and 'AR':
  3573741.1      -269156.74      5258407.3      1  ACRE                a  AR 
 Add the observatory to PRESTO, in get_TOAs.py, near the start, there is a dictionary of telescopes for TEMPO called scopes={...}. Add to the list: ,'AR':'a'} just after 'Geocenter':'o' .
-
+Add the observatory to PINT, in observatory/observatories.py
+TopoObs('acre', aliases=['acreroad','a','AR'], itrf_xyz =[3573741.1, -269156.74, 5258407.3], )
 
 
 

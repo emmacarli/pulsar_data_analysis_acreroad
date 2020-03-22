@@ -1,0 +1,23 @@
+ Data file name without suffix          =  /home/emma/Desktop/Cleaned_Data/1207894977.102396_cleaned
+ Telescope used                         =  AR
+ Instrument used                        =  4-Bay Yagi Antenna
+ Object being observed                  =  J0332+5434
+ J2000 Right Ascension (hh:mm:ss.ssss)  =  03:32:59.4096
+ J2000 Declination     (dd:mm:ss.ssss)  =  54:34:43.3290
+ Data observed by                       =  Graham Woan
+ Epoch of observation (MJD)             =  58224.265730351806
+ Barycentered?           (1 yes, 0 no)  =  0
+ Number of bins in the time series      =  7230000   
+ Width of each time series bin (sec)    =  0.002
+ Any breaks in the data? (1 yes, 0 no)  =  0
+ Type of observation (EM band)          =  Radio
+ Beam diameter (arcsec)                 =  46800
+ Dispersion measure (cm-3 pc)           =  0
+ Central freq of low channel (MHz)      =  407.5
+ Total bandwidth (MHz)                  =  2
+ Number of channels                     =  1
+ Channel bandwidth (MHz)                =  2
+ Data analyzed by                       =  Emma Carli
+ Any additional notes:
+    
+
