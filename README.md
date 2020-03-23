@@ -1,44 +1,59 @@
 # pulsar_data_analysis_acreroad
 
-Radio data analysis software for the pulsar telescope at Acre Road Observatory, Glasgow, Scotland.
+## Radio data analysis software for the pulsar telescope at Acre Road Observatory, Glasgow, Scotland. Cleans up raw observations of PSR J0332+5434, then folds them in topocentric phase, retrieves a TOA and SNR per four hour observation, performs pulsar timing and generates a total profile added in phase with an updated timing model.
+
 For more information refer to pdf report.
 
-To run this notebook, you need a Linux system with PRESTO, PINT and TEMPO installed. I have included notes on how to install them at the end of this README.
+To run this iPython notebook, you need a Linux system with PRESTO, PINT and TEMPO installed. I have included notes on how to install them at the end of this README.
 
 You also need an installation of all the packages imported at the beginning of the notebook.
 
-
-You also need the following files:
+The notebook requires the following files in the working directory:
 - Template_PRESTO_inf_file.txt (created with PRESTO's makeinf, has several fields left empty)
 - J0332+5434_initial_parameters.par, that contains the parameters in table 1 and 2 of the report
 - Jodrell_Template_Profile_I-Q.txt (see report, and Template_Generator folder)
 - Jodrell_Template_Profile_I-Q_PRESTO_Gaussian_fit.gaussians (made with PRESTO's pygaussfit.py on the template above)
 
 
-Change the paths at the beginning of the notebook.
+Change the paths at the beginning of the notebook to the location of the raw files from the Acre Road pulsar telescope. Set where the files cited above are as well as where you want your results saved.
 
 Add the Acre Road observatory to TEMPO's obsys.dat, and make sure no other observatories have the codes 'a' and 'AR':
- 3573741.1      -269156.74      5258407.3      1  ACRE                a  AR 
 
-Add the observatory to PRESTO, in get_TOAs.py, near the start, there is a dictionary of telescopes for TEMPO called scopes={...}. Add to the list: ,'AR':'a'} just after 'Geocenter':'o' .
+	3573741.1      -269156.74      5258407.3      1  ACRE                a  AR 
+
+Add the observatory to PRESTO, in get_TOAs.py, near the start, there is a dictionary of telescopes for TEMPO called scopes={...}. Add to the list: 
+
+	,'AR':'a'} 
+	
+just after 
+
+	'Geocenter':'o' 
 
 Add the observatory to PINT, in observatory/observatories.py
-TopoObs('acre', aliases=['acreroad','a','AR'], itrf_xyz =[3573741.1, -269156.74, 5258407.3], )
+
+	TopoObs('acre', aliases=['acreroad','a','AR'], itrf_xyz =[3573741.1, -269156.74, 5258407.3], )
 
 
-Notes on how to install TEMPO and PRESTO:
+## Notes on how to install TEMPO and PRESTO:
 
 Sources:
-https://blog.csdn.net/sinat_34850075/article/details/52434526
-https://github.com/scottransom/presto/blob/master/INSTALL
-https://docs.google.com/document/d/1v8Dm4f-SOeDQX5Yli6syek1pxtqgpw81b1cxqoqv2aU
-http://zhaozhen.me/2017/10/16/ubuntu-software-presto.html
-http://tempo.sourceforge.net/
-https://summerpulsar.wordpress.com/2015/01/12/more-presto-installation/
+
+- https://blog.csdn.net/sinat_34850075/article/details/52434526
+
+- https://github.com/scottransom/presto/blob/master/INSTALL
+
+- https://docs.google.com/document/d/1v8Dm4f-SOeDQX5Yli6syek1pxtqgpw81b1cxqoqv2aU
+
+- http://zhaozhen.me/2017/10/16/ubuntu-software-presto.html
+
+- http://tempo.sourceforge.net/
+
+- https://summerpulsar.wordpress.com/2015/01/12/more-presto-installation/
 
 
 
-What I've run on my Ubuntu 18.04 64 bit, with Anaconda python 3, to install PRESTO, TEMPO and PINT:
+
+What I've ran on my Ubuntu 18.04 64 bit, with Anaconda python 3, to install PRESTO, TEMPO and PINT:
 
 	sudo apt-get update
 
@@ -63,9 +78,11 @@ What I've run on my Ubuntu 18.04 64 bit, with Anaconda python 3, to install PRES
 	sudo gedit /etc/environment
 
 added to the end of my PATH:
+
 	:/home/emma/PULSAR_SOFTWARES/presto/bin"
 
 then added:
+
 	TEMPO="/home/emma/PULSAR_SOFTWARES/tempo/src"
 
 	PRESTO="/home/emma/PULSAR_SOFTWARES/presto"
@@ -100,11 +117,12 @@ Some Python commands will not work because PRESTO is not entirely compatible wit
 
 
 To install PINT I simply ran 
+
 	cd /home/emma/anaconda3/lib/python3.7/site-packages
 	git clone https://github.com/nanograv/PINT.git
 
 
-Useful links:
+## Useful links:
 - PINT documentation: https://nanograv-pint.readthedocs.io/en/latest/
 - Template: http://www.epta.eu.org/epndb/#gl98/J0332+5434/gl98_408.epn
 - TEMPO documentation: http://tempo.sourceforge.net/reference_manual.html
