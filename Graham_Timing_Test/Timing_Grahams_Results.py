@@ -52,7 +52,7 @@ plt.close()
 
 # Perform the fit
 WLS_fit = fitter.WLSFitter(TOAs, model)
-WLS_fit.set_fitparams('F0','F1', 'RAJ', 'DECJ')
+WLS_fit.set_fitparams('F0','F1', 'RAJ', 'DECJ', 'JUMP1', 'JUMP2', 'JUMP3')
 WLS_fit.fit_toas()
 
 fig4 = plt.figure()
@@ -68,5 +68,5 @@ ax4.set_title("%s Post-Fit Timing Residuals" % model.PSR.value)
 ax4.set_xlabel("MJD")
 ax4.set_ylabel("Residual ($\mu$s)")
 plt.legend()
-plt.savefig('Post_fit_residuals.pdf')
-plt.close()
+#plt.savefig('Post_fit_residuals.pdf')
+#plt.close()
