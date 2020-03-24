@@ -65,7 +65,7 @@ fitted_profile = (ampl1*scipy.stats.norm.pdf(phase_bins, phas1, fwhm1/2.35482))+
 
 fig1 = plt.figure()
 ax1 = plt.gca()
-ax1.step(phase_bins, fitted_profile , label='PRESTO 3-Gaussian \n approximation of I-Q', color='blue')
+ax1.step(phase_bins, fitted_profile , label='PRESTO 4-Gaussian \n approximation of I-Q', color='blue')
 plt.fill_between(phase_bins,fitted_profile, step="pre", alpha=0.3, linewidth=1.5, color='blue')
 ax1.step(phase_bins, Jodrell_template[:,1], label='I', linewidth=0.7, color='black')
 ax1.step(phase_bins, Jodrell_template[:,2], label='Q', linewidth=0.7, color='black', linestyle='--')
