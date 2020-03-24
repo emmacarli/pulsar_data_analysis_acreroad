@@ -43,18 +43,23 @@ Jodrell_Template_Profile_IminusQ = np.c_[phase_bins, Jodrell_template[:,1]-Jodre
 np.savetxt('Jodrell_Template_Profile_I-Q.txt', Jodrell_Template_Profile_IminusQ )
 
 #%% Once pygaussfit.py is ran on the data and the result saved, we can plot the result on top of it 
-const = 109.27180 
-phas1 = 0.46200 
-fwhm1 = 0.00801 
-ampl1 = 69.34160 
-phas2 = 0.52655 
-fwhm2 = 0.00934
-ampl2 = 126.17658 
-phas3 = 0.49828 
-fwhm3 = 0.00940 
-ampl3 = 1254.58176 
+const = 0.84163 
+phas1 = 0.46198 
+fwhm1 = 0.00806 
+ampl1 = 70.78129
+phas2 = 0.52656  
+fwhm2 = 0.00945
+ampl2 = 128.46780 
+phas3 = 0.49873
+fwhm3 = 0.00814 
+ampl3 = 1007.93538 
+phas4 = 0.49204 
+fwhm4 = 0.01649 
+ampl4 = 351.34552
 
-fitted_profile = (ampl1*scipy.stats.norm.pdf(phase_bins, phas1, fwhm1/2.35482))+(ampl2*scipy.stats.norm.pdf(phase_bins, phas2, fwhm2/2.35482))+(ampl3*scipy.stats.norm.pdf(phase_bins, phas3, fwhm3/2.35482))+const
+
+
+fitted_profile = (ampl1*scipy.stats.norm.pdf(phase_bins, phas1, fwhm1/2.35482))+(ampl2*scipy.stats.norm.pdf(phase_bins, phas2, fwhm2/2.35482))+(ampl3*scipy.stats.norm.pdf(phase_bins, phas3, fwhm3/2.35482))+(ampl4*scipy.stats.norm.pdf(phase_bins, phas4, fwhm4/2.35482))+const
 
 #%% Now make the plot
 
