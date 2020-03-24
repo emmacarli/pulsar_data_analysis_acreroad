@@ -1,10 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Mar 23 17:16:19 2020
-
-@author: emma
-"""
 from pint import models, toa , residuals, fitter
 import matplotlib.pyplot as plt
 from astropy import units
@@ -37,8 +30,8 @@ ax3.set_title("%s Pre-fit Timing Residuals" % model.PSR.value)
 ax3.set_xlabel("MJD")
 ax3.set_ylabel("Residual ($\mu$s)")
 plt.legend()
-#plt.savefig('Pre_fit_residuals.pdf') 
-#plt.close()
+plt.savefig('Pre_fit_residuals.pdf') 
+plt.close()
 
 
 # Perform the fit
@@ -51,12 +44,8 @@ ax4 = plt.gca()
 
 # Plot the post-fit residuals
 ax4.errorbar(TOAs.get_mjds().value, WLS_fit.resids.time_resids.to(units.us), yerr=TOAs.get_errors().to(units.us), color='black', elinewidth=0.05, capsize=0, marker='o',markersize=0.8, linestyle='none')
-#ax4.scatter(TOAs.get_mjds().value, WLS_fit.resids.time_resids.to(units.us), marker='.', color='black')
 ax4.set_title("%s Post-Fit Timing Residuals" % model.PSR.value)
 ax4.set_xlabel("MJD")
 ax4.set_ylabel("Residual ($\mu$s)")
 plt.savefig('Post_fit_residuals.pdf')
-plt.savefig('Post_fit_residuals_no_error_bars.pdf') 
 plt.close()
-
-
