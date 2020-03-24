@@ -44,8 +44,13 @@ ax4 = plt.gca()
 
 # Plot the post-fit residuals
 ax4.errorbar(TOAs.get_mjds().value, WLS_fit.resids.time_resids.to(units.us), yerr=TOAs.get_errors().to(units.us), color='black', elinewidth=0.05, capsize=0, marker='o',markersize=0.8, linestyle='none')
+ax4.vlines(56769, -100000, 100000, linewidth=0.5, color='red', label='Jumps')
+ax4.vlines(56794, -100000, 100000, linewidth=0.5, color='red')
+ax4.vlines(57048, -100000, 100000, linewidth=0.5, color='red')
+ax4.vlines(57575, -100000, 100000, linewidth=0.5, color='red')
 ax4.set_title("%s Post-Fit Timing Residuals" % model.PSR.value)
 ax4.set_xlabel("MJD")
 ax4.set_ylabel("Residual ($\mu$s)")
+plt.legend()
 plt.savefig('Post_fit_residuals.pdf')
 plt.close()
