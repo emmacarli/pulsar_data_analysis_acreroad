@@ -127,7 +127,7 @@ To install PINT I simply ran
 - Template: http://www.epta.eu.org/epndb/#gl98/J0332+5434/gl98_408.epn
 - TEMPO documentation: http://tempo.sourceforge.net/reference_manual.html
 - Really nice literature review (and many other pulsar things!): http://alex88ridolfi.altervista.org/pagine/pulsar_literature.html
-- ATNF catalogue parameters for J0332+5434: https://www.atnf.csiro.au/research/pulsar/psrcat/proc_form.php?version=1.62&JName=JName&RaJ=RaJ&DecJ=DecJ&PMRA=PMRA&PMDec=PMDec&PX=PX&F0=F0&F1=F1&startUserDefined=true&c1_val=&c2_val=&c3_val=&c4_val=&sort_attr=jname&sort_order=asc&condition=&pulsar_names=J0332%2B5434&ephemeris=selected&submit_ephemeris=Get+Ephemeris&coords_unit=raj%2Fdecj&radius=&coords_1=&coords_2=&style=Long+with+last+digit+error&no_value=*&fsize=3&x_axis=&x_scale=linear&y_axis=&y_scale=linear&state=query
+- ATNF catalogue parameters for J0332+5434: https://www.atnf.csiro.au/research/pulsar/psrcat/proc_form.php?version=1.62&JName=JName&RaJ=RaJ&DecJ=DecJ&PMRA=PMRA&PMDec=PMDec&PX=PX&PosEpoch=PosEpoch&F0=F0&F1=F1&PEpoch=PEpoch&Age=Age&Bsurf=Bsurf&startUserDefined=true&c1_val=&c2_val=&c3_val=&c4_val=&sort_attr=jname&sort_order=asc&condition=&pulsar_names=j0332\%2B5434&ephemeris=selected&submit_ephemeris=Get+Ephemeris&coords_unit=raj\%2Fdecj&radius=&coords_1=&coords_2=&style=Long+with+last+digit+error&no_value=*&fsize=3&x_axis=&x_scale=linear&y_axis=&y_scale=linear&state=query
 
 
 	
