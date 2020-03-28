@@ -6,7 +6,7 @@ For more information refer to pdf report.
 
 To run this iPython notebook, you need a Linux system with PRESTO, PINT and TEMPO installed. I have included notes on how to install them at the end of this README.
 
-You also need an installation of all the packages imported at the beginning of the notebook.
+You also need an installation of all the Python packages imported at the beginning of the notebook.
 
 The notebook requires the following files in the working directory:
 - Template_PRESTO_inf_file.txt (created with PRESTO's makeinf, has several fields left empty)
@@ -15,7 +15,7 @@ The notebook requires the following files in the working directory:
 - Jodrell_Template_Profile_I-Q_PRESTO_Gaussian_fit.gaussians (made with PRESTO's pygaussfit.py on the template above)
 
 
-Change the paths at the beginning of the notebook to the location of the raw files from the Acre Road pulsar telescope. Set where the files cited above are as well as where you want your results saved.
+Change the paths at the beginning of the notebook to the location of the raw files from the Acre Road pulsar telescope. Set where the files cited above are located, as well as where you want your results saved.
 
 Add the Acre Road observatory to TEMPO's obsys.dat, and make sure no other observatories have the codes 'a' and 'AR':
 
@@ -120,11 +120,14 @@ To install PINT I simply ran
 
 	cd /home/emma/anaconda3/lib/python3.7/site-packages
 	git clone https://github.com/nanograv/PINT.git
+In a non-Anaconda python installation (see PINT website for further instructions)
+
+	pip install pint-pulsar
 
 
 ## Useful links:
 - PINT documentation: https://nanograv-pint.readthedocs.io/en/latest/
-- Template: http://www.epta.eu.org/epndb/#gl98/J0332+5434/gl98_408.epn
+- Pulsar profile template: http://www.epta.eu.org/epndb/#gl98/J0332+5434/gl98_408.epn
 - TEMPO documentation: http://tempo.sourceforge.net/reference_manual.html
 - Really nice literature review (and many other pulsar things!): http://alex88ridolfi.altervista.org/pagine/pulsar_literature.html
 - ATNF catalogue parameters for J0332+5434: https://www.atnf.csiro.au/research/pulsar/psrcat/proc_form.php?version=1.62&JName=JName&RaJ=RaJ&DecJ=DecJ&PMRA=PMRA&PMDec=PMDec&PX=PX&PosEpoch=PosEpoch&F0=F0&F1=F1&PEpoch=PEpoch&Age=Age&Bsurf=Bsurf&startUserDefined=true&c1_val=&c2_val=&c3_val=&c4_val=&sort_attr=jname&sort_order=asc&condition=&pulsar_names=j0332\%2B5434&ephemeris=selected&submit_ephemeris=Get+Ephemeris&coords_unit=raj\%2Fdecj&radius=&coords_1=&coords_2=&style=Long+with+last+digit+error&no_value=*&fsize=3&x_axis=&x_scale=linear&y_axis=&y_scale=linear&state=query
