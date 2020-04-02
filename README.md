@@ -1,6 +1,6 @@
 # pulsar_data_analysis_acreroad
 
-## Radio data analysis software for the pulsar telescope at Acre Road Observatory, Glasgow, Scotland. Cleans up raw observations of PSR J0332+5434, then folds them in topocentric phase, retrieves a TOA and SNR per four hour observation, performs pulsar timing and generates a total profile added in phase with an updated timing model.
+## Radio data analysis pipeline for the pulsar telescope at Acre Road Observatory, Glasgow, Scotland. Cleans up raw observations of PSR J0332+5434, then folds them in topocentric phase, retrieves a TOA and SNR per four hour observation, performs pulsar timing and generates a total profile added in phase with an updated timing model.
 
 For more information refer to pdf report.
 
@@ -79,19 +79,19 @@ What I've ran on my Ubuntu 18.04 64 bit, with Anaconda python 3, to install PRES
 
 added to the end of my PATH:
 
-	:/home/emma/PULSAR_SOFTWARES/presto/bin"
+	:/home/emma/PULSAR_SOFTWARE/presto/bin"
 
 then added:
 
-	TEMPO="/home/emma/PULSAR_SOFTWARES/tempo/src"
+	TEMPO="/home/emma/PULSAR_SOFTWARE/tempo/src"
 
-	PRESTO="/home/emma/PULSAR_SOFTWARES/presto"
+	PRESTO="/home/emma/PULSAR_SOFTWARE/presto"
 
 	PGPLOT_DIR="/usr/lib/pgplot5"
 
 	FFTW_PATH="/usr"
 
-	LD_LIBRARY_PATH="/home/emma/PULSAR_SOFTWARES/presto/lib"
+	LD_LIBRARY_PATH="/home/emma/PULSAR_SOFTWARE/presto/lib"
 
 
 	git clone https://github.com/scottransom/pyslalib.git
