@@ -91,8 +91,6 @@ then added:
 
 	FFTW_PATH="/usr"
 
-	LD_LIBRARY_PATH="/home/emma/PULSAR_SOFTWARE/presto/lib"
-
 
 	git clone https://github.com/scottransom/pyslalib.git
 	cd pyslalib
