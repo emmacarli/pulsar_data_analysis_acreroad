@@ -110,7 +110,7 @@ then added:
 	sudo cp libpresto.so /usr/lib
 
 
-
+Note, if you keep PRESTO up to date using github, you will need to run all the lines starting from "make..." to install the updates.
 Some Python commands will not work because PRESTO is not entirely compatible with Anaconda installations: https://github.com/scottransom/presto/issues/73 . The ones needed for this project (pygaussfit.py, prepfold, sum_profiles.py, get_TOAs.py) work.
 
 
