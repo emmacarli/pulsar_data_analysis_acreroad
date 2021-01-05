@@ -53,74 +53,7 @@ Sources:
 
 
 
-What I've ran on my Ubuntu 18.04 64 bit, with Anaconda python 3, to install PRESTO, TEMPO and PINT:
-
-	sudo apt-get update
-
-	cd ~
-	mkdir PULSAR_SOFTWARE
-
-	sudo apt-get install git libfftw3-bin libfftw3-dbg libfftw3-dev libfftw3-doc libfftw3-double3 libfftw3-long3 libfftw3-quad3 libfftw3-single3 pgplot5 csh automake gfortran libglib2.0-dev libccfits-dev libcfitsio5 libcfitsio-dev libx11-dev libpng-dev 
-
-	cd PULSAR_SOFTWARE/
-	git clone http://git.code.sf.net/p/tempo/tempo
-
-	cd tempo
-	./prepare
-	./configure
-	make && sudo make install
-	cp tempo.cfg src/
-	cp tempo.hlp src/
-	cd ..
-
-	git clone http://github.com/scottransom/presto.git
-
-	sudo gedit /etc/environment
-
-added to the end of my PATH:
-
-	:/home/emma/PULSAR_SOFTWARE/presto/bin"
-
-then added:
-
-	TEMPO="/home/emma/PULSAR_SOFTWARE/tempo/src"
-
-	PRESTO="/home/emma/PULSAR_SOFTWARE/presto"
-
-	PGPLOT_DIR="/usr/lib/pgplot5"
-
-	FFTW_PATH="/usr"
-
-
-	git clone https://github.com/scottransom/pyslalib.git
-	cd pyslalib
-	python setup.py install
-
-
-	cd /home/emma/PULSAR_SOFTWARE/presto/src
-
-	make makewisdom
-	make prep
-	make
-	make clean
-
-	cd $PRESTO ; pip install .
-
-	cd lib
-	sudo cp libpresto.so /usr/lib
-
-
-Note, if you keep PRESTO up to date using github, you will need to run all the lines starting from "make..." to install the updates.
-Some Python commands will not work because PRESTO is not entirely compatible with Anaconda installations: https://github.com/scottransom/presto/issues/73 . The ones needed for this project (pygaussfit.py, prepfold, sum_profiles.py, get_TOAs.py) work.
-
-
-To install PINT I simply ran 
-
-	cd /home/emma/anaconda3/lib/python3.7/site-packages
-	git clone https://github.com/nanograv/PINT.git
-In a non-Anaconda python installation (see PINT website for further instructions)
-
-	pip install pint-pulsar
+To install PRESTO and TEMPO please refer to https://emmacarli.github.io/2020/04/02/PRESTO-and-TEMPO-installation . PINT has clear instructions in their docs.
 
 
 ## Useful links:
