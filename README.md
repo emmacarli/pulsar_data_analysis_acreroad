@@ -34,23 +34,7 @@ Add the observatory to PINT, in observatory/observatories.py
 	TopoObs('acre', aliases=['acreroad','a','AR'], itrf_xyz =[3573741.1, -269156.74, 5258407.3], )
 
 
-## Notes on how to install TEMPO and PRESTO:
-
-Sources:
-
-- https://blog.csdn.net/sinat_34850075/article/details/52434526
-
-- https://github.com/scottransom/presto/blob/master/INSTALL
-
-- https://docs.google.com/document/d/1v8Dm4f-SOeDQX5Yli6syek1pxtqgpw81b1cxqoqv2aU
-
-- http://zhaozhen.me/2017/10/16/ubuntu-software-presto.html
-
-- http://tempo.sourceforge.net/
-
-- https://summerpulsar.wordpress.com/2015/01/12/more-presto-installation/
-
-
+## How to install TEMPO and PRESTO:
 
 
 To install PRESTO and TEMPO please refer to https://emmacarli.github.io/2020/04/02/PRESTO-and-TEMPO-installation . PINT has clear instructions in their docs.
